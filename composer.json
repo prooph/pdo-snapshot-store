@@ -35,6 +35,7 @@
         "phpspec/prophecy": "dev-patch-1 as 1.6.1",
         "prooph/php-cs-fixer-config": "^0.1.1",
         "satooshi/php-coveralls": "^1.0",
+        "sebastian/comparator": "^1.2.2",
         "zendframework/zend-servicemanager": "~2.6",
         "malukenho/docheader": "^0.1.4"
     },
