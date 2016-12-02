@@ -49,12 +49,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Prooph\\PDOSnapshotStore\\": "src/"
+            "Prooph\\PDO\\SnapshotStore\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ProophTest\\PDOSnapshotStore\\": "tests/"
+            "ProophTest\\PDO\\SnapshotStore\\": "tests/"
         }
     },
     "extra": {
