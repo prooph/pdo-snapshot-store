@@ -57,12 +57,12 @@ EOT;
         $statement = $this->connection->prepare($query);
         $statement->execute([
             $aggregateType->toString(),
-            $aggregateId
+            $aggregateId,
         ]);
 
         $result = $statement->fetch(\PDO::FETCH_OBJ);
 
-        if (!$result) {
+        if (! $result) {
             return null;
         }
 
@@ -87,7 +87,7 @@ EOT;
 
         $statement = $this->connection->prepare($delete);
         $statement->execute([
-            $snapshot->aggregateId()
+            $snapshot->aggregateId(),
         ]);
 
         $insert = <<<EOT
