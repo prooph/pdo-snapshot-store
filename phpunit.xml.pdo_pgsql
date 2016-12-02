@@ -21,12 +21,6 @@
         </whitelist>
     </filter>
 
-    <groups>
-      <exclude>
-        <group>pdo_mysql</group>
-      </exclude>
-    </groups>
-
     <php>
         <var name="db_type" value="pdo_pgsql"/>
         <var name="db_host" value="localhost" />
