@@ -12,7 +12,7 @@ matrix:
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-                - DB=mysql_5_6
+        - DB=mysql_5_6
     - php: 7.1
       sudo: true
       env:
