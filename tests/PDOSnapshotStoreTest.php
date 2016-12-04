@@ -33,7 +33,7 @@ class PDOSnapshotStoreTest extends TestCase
     /**
      * @test
      */
-    public function it_saves_and_reads_using_mysql()
+    public function it_saves_and_reads()
     {
         $aggregateType = AggregateType::fromString('baz');
         $aggregateRoot = new \stdClass();

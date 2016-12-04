@@ -32,15 +32,16 @@ abstract class TestUtil
     public static function getConnection(): PDO
     {
         $connectionParams = self::getConnectionParams();
+
         $separator = self::$driverSchemeSeparators[$connectionParams['driver']];
+
         $dsn = self::$driverSchemeAliases[$connectionParams['driver']] . ':';
         $dsn .= 'host=' . $connectionParams['host'] . $separator;
         $dsn .= 'port=' . $connectionParams['port'] . $separator;
         $dsn .= 'dbname=' . $connectionParams['dbname'] . $separator;
         $dsn = rtrim($dsn);
-        $connection = new PDO($dsn, $connectionParams['user'], $connectionParams['password']);
 
-        return $connection;
+        return new PDO($dsn, $connectionParams['user'], $connectionParams['password']);
     }
 
     public static function getDatabaseName(): string
