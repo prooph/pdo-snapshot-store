@@ -6,4 +6,6 @@
 .gitignore        export-ignore
 .php_cs           export-ignore
 .travis.yml       export-ignore
-phpunit.xml.dist  export-ignore
+.travis.install-mysql-5.7.sh       export-ignore
+phpunit.xml.pdo_mysql  export-ignore
+phpunit.xml.pdo_pgsql  export-ignore

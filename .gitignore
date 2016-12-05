@@ -4,6 +4,7 @@
 /vendor
 /build
 .idea
+phpunit.xml
 .php_cs.cache
 nbproject
 composer.lock
