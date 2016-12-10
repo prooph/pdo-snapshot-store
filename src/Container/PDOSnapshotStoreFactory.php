@@ -98,12 +98,12 @@ class PDOSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
         $this->configId = $configId;
     }
 
-    public function dimensions(): array
+    public function dimensions(): iterable
     {
         return ['prooph', 'pdo_snapshot_store'];
     }
 
-    public function defaultOptions(): array
+    public function defaultOptions(): iterable
     {
         return [
             'connection_options' => [
