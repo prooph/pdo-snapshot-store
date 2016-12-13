@@ -25,7 +25,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.1",
-        "prooph/event-sourcing" : "5.0.x-dev"
+        "prooph/event-sourcing" : "^6.0.0-beta"
     },
     "require-dev": {
         "container-interop/container-interop": "^1.1",
@@ -35,7 +35,7 @@
         "prooph/php-cs-fixer-config": "^0.1.1",
         "satooshi/php-coveralls": "^1.0",
         "sebastian/comparator": "^1.2.2",
-        "zendframework/zend-servicemanager": "~2.6",
+        "zendframework/zend-servicemanager": "^3.1",
         "malukenho/docheader": "^0.1.4"
     },
     "suggest" : {
