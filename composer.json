@@ -25,7 +25,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.1",
-        "prooph/event-sourcing" : "^6.0.0-beta"
+        "prooph/event-sourcing" : "6.0.x-dev"
     },
     "require-dev": {
         "container-interop/container-interop": "^1.1",
