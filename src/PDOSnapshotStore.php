@@ -51,14 +51,11 @@ final class PDOSnapshotStore implements SnapshotStore
         $table = $this->getTableName($aggregateType);
 
         $query = <<<EOT
-SELECT * FROM $table WHERE aggregate_type = ? AND aggregate_id = ? ORDER BY last_version DESC 
+SELECT * FROM $table WHERE aggregate_id = ? ORDER BY last_version DESC 
 EOT;
 
         $statement = $this->connection->prepare($query);
-        $statement->execute([
-            $aggregateType->toString(),
-            $aggregateId,
-        ]);
+        $statement->execute([$aggregateId]);
 
         $result = $statement->fetch(\PDO::FETCH_OBJ);
 
