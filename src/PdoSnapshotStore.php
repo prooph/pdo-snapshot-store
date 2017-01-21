@@ -10,14 +10,13 @@
 
 declare(strict_types=1);
 
-namespace Prooph\PDO\SnapshotStore;
+namespace Prooph\Pdo\SnapshotStore;
 
 use PDO;
-use Prooph\EventSourcing\Aggregate\AggregateType;
-use Prooph\EventSourcing\Snapshot\Snapshot;
-use Prooph\EventSourcing\Snapshot\SnapshotStore;
+use Prooph\SnapshotStore\Snapshot;
+use Prooph\SnapshotStore\SnapshotStore;
 
-final class PDOSnapshotStore implements SnapshotStore
+final class PdoSnapshotStore implements SnapshotStore
 {
     /**
      * @var PDO
@@ -46,7 +45,7 @@ final class PDOSnapshotStore implements SnapshotStore
         $this->defaultSnapshotTableName = $defaultSnapshotTableName;
     }
 
-    public function get(AggregateType $aggregateType, string $aggregateId): ?Snapshot
+    public function get(string $aggregateType, string $aggregateId): ?Snapshot
     {
         $table = $this->getTableName($aggregateType);
 
@@ -95,7 +94,7 @@ EOT;
         $statement = $this->connection->prepare($insert);
         $statement->execute([
             $snapshot->aggregateId(),
-            $snapshot->aggregateType()->toString(),
+            $snapshot->aggregateType(),
             $snapshot->lastVersion(),
             $snapshot->createdAt()->format('Y-m-d\TH:i:s.u'),
             serialize($snapshot->aggregateRoot()),
@@ -104,10 +103,10 @@ EOT;
         $this->connection->commit();
     }
 
-    private function getTableName(AggregateType $aggregateType): string
+    private function getTableName(string $aggregateType): string
     {
-        if (isset($this->snapshotTableMap[$aggregateType->toString()])) {
-            $tableName = $this->snapshotTableMap[$aggregateType->toString()];
+        if (isset($this->snapshotTableMap[$aggregateType])) {
+            $tableName = $this->snapshotTableMap[$aggregateType];
         } else {
             $tableName = $this->defaultSnapshotTableName;
         }
