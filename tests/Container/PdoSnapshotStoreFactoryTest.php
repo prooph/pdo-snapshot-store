@@ -10,15 +10,15 @@
 
 declare(strict_types=1);
 
-namespace ProophTest\PDO\SnapshotStore\Container;
+namespace ProophTest\Pdo\SnapshotStore\Container;
 
 use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
-use Prooph\PDO\SnapshotStore\Container\PDOSnapshotStoreFactory;
-use Prooph\PDO\SnapshotStore\PDOSnapshotStore;
-use ProophTest\PDO\SnapshotStore\TestUtil;
+use Prooph\Pdo\SnapshotStore\Container\PdoSnapshotStoreFactory;
+use Prooph\Pdo\SnapshotStore\PdoSnapshotStore;
+use ProophTest\Pdo\SnapshotStore\TestUtil;
 
-class PDOSnapshotStoreFactoryTest extends TestCase
+class PdoSnapshotStoreFactoryTest extends TestCase
 {
     /**
      * @test
@@ -36,10 +36,10 @@ class PDOSnapshotStoreFactoryTest extends TestCase
         $container->get('my_connection')->willReturn($connection)->shouldBeCalled();
         $container->get('config')->willReturn($config)->shouldBeCalled();
 
-        $factory = new PDOSnapshotStoreFactory();
+        $factory = new PdoSnapshotStoreFactory();
         $snapshotStore = $factory($container->reveal());
 
-        $this->assertInstanceOf(PDOSnapshotStore::class, $snapshotStore);
+        $this->assertInstanceOf(PdoSnapshotStore::class, $snapshotStore);
     }
 
     /**
@@ -56,9 +56,9 @@ class PDOSnapshotStoreFactoryTest extends TestCase
         $container->get('config')->willReturn($config)->shouldBeCalled();
 
         $snapshotStoreName = 'custom';
-        $snapshotStore = PDOSnapshotStoreFactory::$snapshotStoreName($container->reveal());
+        $snapshotStore = PdoSnapshotStoreFactory::$snapshotStoreName($container->reveal());
 
-        $this->assertInstanceOf(PDOSnapshotStore::class, $snapshotStore);
+        $this->assertInstanceOf(PdoSnapshotStore::class, $snapshotStore);
     }
 
     /**
@@ -69,6 +69,6 @@ class PDOSnapshotStoreFactoryTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $eventStoreName = 'custom';
-        PDOSnapshotStoreFactory::$eventStoreName('invalid container');
+        PdoSnapshotStoreFactory::$eventStoreName('invalid container');
     }
 }

@@ -10,16 +10,16 @@
 
 declare(strict_types=1);
 
-namespace Prooph\PDO\SnapshotStore\Container;
+namespace Prooph\Pdo\SnapshotStore\Container;
 
 use Interop\Config\ConfigurationTrait;
 use Interop\Config\ProvidesDefaultOptions;
 use Interop\Config\RequiresConfigId;
 use Interop\Container\ContainerInterface;
 use PDO;
-use Prooph\PDO\SnapshotStore\PDOSnapshotStore;
+use Prooph\Pdo\SnapshotStore\PdoSnapshotStore;
 
-class PDOSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigId
+class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigId
 {
     use ConfigurationTrait;
 
@@ -50,13 +50,13 @@ class PDOSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
      * <code>
      * <?php
      * return [
-     *     PDOSnapshotStore::class => [PDOSnapshotStoreFactory::class, 'service_name'],
+     *     PdoSnapshotStore::class => [PdoSnapshotStoreFactory::class, 'service_name'],
      * ];
      * </code>
      *
      * @throws \InvalidArgumentException
      */
-    public static function __callStatic(string $name, array $arguments): PDOSnapshotStore
+    public static function __callStatic(string $name, array $arguments): PdoSnapshotStore
     {
         if (! isset($arguments[0]) || ! $arguments[0] instanceof ContainerInterface) {
             throw new \InvalidArgumentException(
@@ -67,7 +67,7 @@ class PDOSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
         return (new static($name))->__invoke($arguments[0]);
     }
 
-    public function __invoke(ContainerInterface $container): PDOSnapshotStore
+    public function __invoke(ContainerInterface $container): PdoSnapshotStore
     {
         $config = $container->get('config');
         $config = $this->options($config, $this->configId);
@@ -86,7 +86,7 @@ class PDOSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
             $connection = new PDO($dsn, $user, $password);
         }
 
-        return new PDOSnapshotStore(
+        return new PdoSnapshotStore(
             $connection,
             $config['snapshot_table_map'],
             $config['default_snapshot_table_name']

@@ -10,18 +10,17 @@
 
 declare(strict_types=1);
 
-namespace ProophTest\PDO\SnapshotStore;
+namespace ProophTest\Pdo\SnapshotStore;
 
 use PDO;
 use PHPUnit_Framework_TestCase as TestCase;
-use Prooph\EventSourcing\Aggregate\AggregateType;
-use Prooph\EventSourcing\Snapshot\Snapshot;
-use Prooph\PDO\SnapshotStore\PDOSnapshotStore;
+use Prooph\Pdo\SnapshotStore\PdoSnapshotStore;
+use Prooph\SnapshotStore\Snapshot;
 
-class PDOSnapshotStoreTest extends TestCase
+class PdoSnapshotStoreTest extends TestCase
 {
     /**
-     * @var PDOSnapshotStore
+     * @var PdoSnapshotStore
      */
     private $snapshotStore;
 
@@ -35,7 +34,7 @@ class PDOSnapshotStoreTest extends TestCase
      */
     public function it_saves_and_reads()
     {
-        $aggregateType = AggregateType::fromString('baz');
+        $aggregateType = 'baz';
         $aggregateRoot = new \stdClass();
         $aggregateRoot->foo = 'bar';
 
@@ -75,7 +74,7 @@ class PDOSnapshotStoreTest extends TestCase
     {
         $this->createTable('bar');
 
-        $aggregateType = AggregateType::fromString('foo');
+        $aggregateType = 'foo';
         $aggregateRoot = new \stdClass();
         $aggregateRoot->foo = 'bar';
         $time = (string) microtime(true);
@@ -115,7 +114,7 @@ EOT;
                 throw new \RuntimeException('Invalid database vendor');
         }
 
-        $this->snapshotStore = new PDOSnapshotStore($this->connection, ['foo' => 'bar'], 'snapshots');
+        $this->snapshotStore = new PdoSnapshotStore($this->connection, ['foo' => 'bar'], 'snapshots');
     }
 
     protected function createTable(string $name)
