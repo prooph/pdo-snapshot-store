@@ -71,34 +71,58 @@ EOT;
         );
     }
 
-    public function save(Snapshot $snapshot): void
+    public function save(Snapshot ...$snapshots): void
     {
-        $table = $this->getTableName($snapshot->aggregateType());
+        if (empty($snapshots)) {
+            return;
+        }
+
+        $deletes = [];
+        $inserts = [];
+
+        foreach ($snapshots as $snapshot) {
+            $deletes[$this->getTableName($snapshot->aggregateType())][] = $snapshot->aggregateId();
+            $inserts[$this->getTableName($snapshot->aggregateType())][] = $snapshot;
+        }
+
+        $statements = [];
+
+        foreach ($deletes as $table => $aggregateIds) {
+            $ids = implode(', ', array_fill(0, count($aggregateIds), '?'));
+            $deleteSql = <<<EOT
+DELETE FROM $table where aggregate_id IN ($ids);
+EOT;
+            $statement = $this->connection->prepare($deleteSql);
+            foreach ($aggregateIds as $position => $aggregateId) {
+                $statement->bindValue($position + 1, $aggregateId);
+            }
+
+            $statements[] = $statement;
+        }
+
+        foreach ($inserts as $table => $snapshots) {
+            $allPlaces = implode(', ', array_fill(0, count($snapshots), '(?, ?, ?, ?, ?)'));
+            $insertSql = <<<EOT
+INSERT INTO $table (aggregate_id, aggregate_type, last_version, created_at, aggregate_root)
+VALUES $allPlaces
+EOT;
+            $statement = $this->connection->prepare($insertSql);
+            foreach ($snapshots as $index => $snapshot) {
+                $position = $index * 5;
+                $statement->bindValue(++$position, $snapshot->aggregateId());
+                $statement->bindValue(++$position, $snapshot->aggregateType());
+                $statement->bindValue(++$position, $snapshot->lastVersion(), PDO::PARAM_INT);
+                $statement->bindValue(++$position, $snapshot->createdAt()->format('Y-m-d\TH:i:s.u'));
+                $statement->bindValue(++$position, serialize($snapshot->aggregateRoot()));
+            }
+            $statements[] = $statement;
+        }
 
         $this->connection->beginTransaction();
 
-        $delete = <<<EOT
-DELETE FROM $table WHERE aggregate_id = ?
-EOT;
-
-        $statement = $this->connection->prepare($delete);
-        $statement->execute([
-            $snapshot->aggregateId(),
-        ]);
-
-        $insert = <<<EOT
-INSERT INTO $table (aggregate_id, aggregate_type, last_version, created_at, aggregate_root)
-VALUES (?, ?, ?, ?, ?);
-EOT;
-
-        $statement = $this->connection->prepare($insert);
-        $statement->execute([
-            $snapshot->aggregateId(),
-            $snapshot->aggregateType(),
-            $snapshot->lastVersion(),
-            $snapshot->createdAt()->format('Y-m-d\TH:i:s.u'),
-            serialize($snapshot->aggregateRoot()),
-        ]);
+        foreach ($statements as $statement) {
+            $statement->execute();
+        }
 
         $this->connection->commit();
     }
@@ -116,7 +140,7 @@ EOT;
 
     /**
      * @param string|resource $serialized
-     * @return object
+     * @return object|array
      */
     private function unserializeAggregateRoot($serialized)
     {
