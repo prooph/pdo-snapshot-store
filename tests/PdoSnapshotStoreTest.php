@@ -70,6 +70,41 @@ class PdoSnapshotStoreTest extends TestCase
     /**
      * @test
      */
+    public function it_saves_multiple_snapshots()
+    {
+        $aggregateRoot1 = new \stdClass();
+        $aggregateRoot1->foo = 'bar';
+
+        $aggregateRoot2 = ['foo' => 'baz'];
+
+        $time = (string) microtime(true);
+        if (false === strpos($time, '.')) {
+            $time .= '.0000';
+        }
+
+        $now = \DateTimeImmutable::createFromFormat('U.u', $time);
+
+        $snapshot1 = new Snapshot('object', 'id_one', $aggregateRoot1, 1, $now);
+
+        $snapshot2 = new Snapshot('array', 'id_two', $aggregateRoot2, 2, $now);
+
+        $this->snapshotStore->save($snapshot1, $snapshot2);
+
+        $this->assertEquals($snapshot1, $this->snapshotStore->get('object', 'id_one'));
+        $this->assertEquals($snapshot2, $this->snapshotStore->get('array', 'id_two'));
+    }
+
+    /**
+     * @test
+     */
+    public function it_returns_early_when_no_snapshots_given()
+    {
+        $this->snapshotStore->save();
+    }
+
+    /**
+     * @test
+     */
     public function it_uses_custom_snapshot_table_map()
     {
         $this->createTable('bar');
@@ -115,6 +150,14 @@ EOT;
         }
 
         $this->snapshotStore = new PdoSnapshotStore($this->connection, ['foo' => 'bar'], 'snapshots');
+    }
+
+    protected function tearDown(): void
+    {
+        $statement = $this->connection->prepare('TRUNCATE snapshots');
+        $statement->execute();
+        $statement = $this->connection->prepare('TRUNCATE bar');
+        $statement->execute();
     }
 
     protected function createTable(string $name)
