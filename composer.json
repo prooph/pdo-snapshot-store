@@ -28,7 +28,7 @@
         "prooph/snapshot-store" : "1.0.x-dev"
     },
     "require-dev": {
-        "container-interop/container-interop": "^1.1",
+        "psr/container": "^1.0",
         "sandrokeil/interop-config": "^2.0.1",
         "phpunit/phpunit": "^5.7.3",
         "phpspec/prophecy": "dev-patch-1 as 1.6.2",
@@ -41,7 +41,7 @@
     "suggest" : {
         "prooph/pdo-event-store": "^1.0 For usage with MySQL or Postgres as event store",
         "prooph/snapshotter": "^2.0 Taking snapshots with ease",
-        "container-interop/container-interop": "For usage of provided factories",
+        "psr/container": "^1.0 for usage of provided factories",
         "sandrokeil/interop-config": "For usage of provided factories"
     },
     "conflict": {
