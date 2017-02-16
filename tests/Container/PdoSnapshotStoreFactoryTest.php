@@ -12,11 +12,11 @@ declare(strict_types=1);
 
 namespace ProophTest\Pdo\SnapshotStore\Container;
 
-use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Prooph\Pdo\SnapshotStore\Container\PdoSnapshotStoreFactory;
 use Prooph\Pdo\SnapshotStore\PdoSnapshotStore;
 use ProophTest\Pdo\SnapshotStore\TestUtil;
+use Psr\Container\ContainerInterface;
 
 class PdoSnapshotStoreFactoryTest extends TestCase
 {

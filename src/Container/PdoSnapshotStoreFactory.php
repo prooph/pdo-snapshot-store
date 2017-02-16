@@ -15,9 +15,9 @@ namespace Prooph\Pdo\SnapshotStore\Container;
 use Interop\Config\ConfigurationTrait;
 use Interop\Config\ProvidesDefaultOptions;
 use Interop\Config\RequiresConfigId;
-use Interop\Container\ContainerInterface;
 use PDO;
 use Prooph\Pdo\SnapshotStore\PdoSnapshotStore;
+use Psr\Container\ContainerInterface;
 
 class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigId
 {
