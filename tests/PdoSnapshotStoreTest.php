@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace ProophTest\Pdo\SnapshotStore;
 
 use PDO;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Prooph\Pdo\SnapshotStore\PdoSnapshotStore;
 use Prooph\SnapshotStore\Snapshot;
 
@@ -70,7 +70,7 @@ class PdoSnapshotStoreTest extends TestCase
     /**
      * @test
      */
-    public function it_saves_multiple_snapshots()
+    public function it_saves_multiple_snapshots_and_removes_them()
     {
         $aggregateRoot1 = new \stdClass();
         $aggregateRoot1->foo = 'bar';
@@ -88,10 +88,19 @@ class PdoSnapshotStoreTest extends TestCase
 
         $snapshot2 = new Snapshot('array', 'id_two', $aggregateRoot2, 2, $now);
 
-        $this->snapshotStore->save($snapshot1, $snapshot2);
+        $snapshot3 = new Snapshot('array', 'id_three', $aggregateRoot2, 1, $now);
+
+        $this->snapshotStore->save($snapshot1, $snapshot2, $snapshot3);
 
         $this->assertEquals($snapshot1, $this->snapshotStore->get('object', 'id_one'));
         $this->assertEquals($snapshot2, $this->snapshotStore->get('array', 'id_two'));
+        $this->assertEquals($snapshot3, $this->snapshotStore->get('array', 'id_three'));
+
+        $this->snapshotStore->removeAll('array');
+
+        $this->assertEquals($snapshot1, $this->snapshotStore->get('object', 'id_one'));
+        $this->assertNull($this->snapshotStore->get('array', 'id_two'));
+        $this->assertNull($this->snapshotStore->get('array', 'id_three'));
     }
 
     /**
@@ -99,7 +108,12 @@ class PdoSnapshotStoreTest extends TestCase
      */
     public function it_returns_early_when_no_snapshots_given()
     {
-        $this->snapshotStore->save();
+        $pdo = $this->prophesize(PDO::class);
+        $pdo->beginTransaction()->shouldNotBeCalled();
+
+        $snapshotStore = new PdoSnapshotStore($pdo->reveal());
+
+        $snapshotStore->save();
     }
 
     /**

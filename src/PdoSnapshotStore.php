@@ -127,6 +127,23 @@ EOT;
         $this->connection->commit();
     }
 
+    public function removeAll(string $aggregateType): void
+    {
+        $table = $this->getTableName($aggregateType);
+
+        $sql = <<<SQL
+DELETE FROM $table WHERE aggregate_type = ?;
+SQL;
+
+        $statement = $this->connection->prepare($sql);
+
+        $this->connection->beginTransaction();
+
+        $statement->execute([$aggregateType]);
+
+        $this->connection->commit();
+    }
+
     private function getTableName(string $aggregateType): string
     {
         if (isset($this->snapshotTableMap[$aggregateType])) {
