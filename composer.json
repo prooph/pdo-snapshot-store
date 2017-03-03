@@ -42,7 +42,7 @@
         "prooph/pdo-event-store": "^1.0 For usage with MySQL or Postgres as event store",
         "prooph/snapshotter": "^2.0 Taking snapshots with ease",
         "psr/container": "^1.0 for usage of provided factories",
-        "sandrokeil/interop-config": "For usage of provided factories"
+        "sandrokeil/interop-config": "^2.0.1 for usage of provided factories"
     },
     "conflict": {
         "sandrokeil/interop-config": "<2.0.1"
