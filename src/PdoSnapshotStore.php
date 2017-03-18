@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-namespace Prooph\Pdo\SnapshotStore;
+namespace Prooph\SnapshotStore\Pdo;
 
 use PDO;
 use Prooph\SnapshotStore\Snapshot;

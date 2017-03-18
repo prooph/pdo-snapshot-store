@@ -10,13 +10,13 @@
 
 declare(strict_types=1);
 
-namespace Prooph\Pdo\SnapshotStore\Container;
+namespace Prooph\SnapshotStore\Pdo\Container;
 
 use Interop\Config\ConfigurationTrait;
 use Interop\Config\ProvidesDefaultOptions;
 use Interop\Config\RequiresConfigId;
 use PDO;
-use Prooph\Pdo\SnapshotStore\PdoSnapshotStore;
+use Prooph\SnapshotStore\Pdo\PdoSnapshotStore;
 use Psr\Container\ContainerInterface;
 
 class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigId
