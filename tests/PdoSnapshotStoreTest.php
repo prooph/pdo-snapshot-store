@@ -10,11 +10,11 @@
 
 declare(strict_types=1);
 
-namespace ProophTest\Pdo\SnapshotStore;
+namespace ProophTest\SnapshotStore\Pdo;
 
 use PDO;
 use PHPUnit\Framework\TestCase;
-use Prooph\Pdo\SnapshotStore\PdoSnapshotStore;
+use Prooph\SnapshotStore\Pdo\PdoSnapshotStore;
 use Prooph\SnapshotStore\Snapshot;
 
 class PdoSnapshotStoreTest extends TestCase
