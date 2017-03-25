@@ -15,11 +15,12 @@ namespace Prooph\SnapshotStore\Pdo\Container;
 use Interop\Config\ConfigurationTrait;
 use Interop\Config\ProvidesDefaultOptions;
 use Interop\Config\RequiresConfigId;
+use Interop\Config\RequiresMandatoryOptions;
 use PDO;
 use Prooph\SnapshotStore\Pdo\PdoSnapshotStore;
 use Psr\Container\ContainerInterface;
 
-class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigId
+class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigId, RequiresMandatoryOptions
 {
     use ConfigurationTrait;
 
@@ -27,19 +28,6 @@ class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
      * @var string
      */
     private $configId;
-
-    /**
-     * @var array
-     */
-    private $driverSchemeAliases = [
-        'pdo_mysql' => 'mysql',
-        'pdo_pgsql' => 'pgsql',
-    ];
-
-    private $driverSchemeSeparators = [
-        'pdo_mysql' => ';',
-        'pdo_pgsql' => ' ',
-    ];
 
     /**
      * Creates a new instance from a specified config, specifically meant to be used as static factory.
@@ -72,19 +60,7 @@ class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
         $config = $container->get('config');
         $config = $this->options($config, $this->configId);
 
-        if (isset($config['connection_service'])) {
-            $connection = $container->get($config['connection_service']);
-        } else {
-            $separator = $this->driverSchemeSeparators[$config['connection_options']['driver']];
-            $dsn = $this->driverSchemeAliases[$config['connection_options']['driver']] . ':';
-            $dsn .= 'host=' . $config['connection_options']['host'] . $separator;
-            $dsn .= 'port=' . $config['connection_options']['port'] . $separator;
-            $dsn .= 'dbname=' . $config['connection_options']['dbname'] . $separator;
-            $dsn = rtrim($dsn);
-            $user = $config['connection_options']['user'];
-            $password = $config['connection_options']['password'];
-            $connection = new PDO($dsn, $user, $password);
-        }
+        $connection = $container->get($config['connection_service']);
 
         return new PdoSnapshotStore(
             $connection,
@@ -103,17 +79,16 @@ class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
         return ['prooph', 'pdo_snapshot_store'];
     }
 
+    public function mandatoryOptions(): iterable
+    {
+        return [
+            'connection_service',
+        ];
+    }
+
     public function defaultOptions(): iterable
     {
         return [
-            'connection_options' => [
-                'driver' => 'pdo_mysql', // or use pdo_pgsql
-                'user' => 'root',
-                'password' => '',
-                'host' => '127.0.0.1',
-                'dbname' => 'snapshot_store',
-                'port' => 3306, // or use 5432 for pgsql (default)
-            ],
             'snapshot_table_map' => [],
             'default_snapshot_table_name' => 'snapshots',
         ];

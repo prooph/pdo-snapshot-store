@@ -1,0 +1,10 @@
+{
+  "title": "Prooph PDO SnapshotStore",
+  "content": [
+    {"intro": "../README.md"},
+    {"snapshots": "setup.md"},
+    {"interop_factories": "interop_factories.md"}
+  ],
+  "target": "./html",
+  "template": "../vendor/prooph/bookdown-template/templates/main.php"
+}
