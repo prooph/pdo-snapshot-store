@@ -35,14 +35,21 @@ final class PdoSnapshotStore implements SnapshotStore
      */
     private $defaultSnapshotTableName;
 
+    /**
+     * @var SerializerStrategy
+     */
+    private $serializer;
+
     public function __construct(
         PDO $connection,
         array $snapshotTableMap = [],
-        string $defaultSnapshotTableName = 'snapshots'
+        string $defaultSnapshotTableName = 'snapshots',
+        SerializerStrategy $serializer = null
     ) {
         $this->connection = $connection;
         $this->snapshotTableMap = $snapshotTableMap;
         $this->defaultSnapshotTableName = $defaultSnapshotTableName;
+        $this->serializer = $serializer ?: new Serializer(null, null);
     }
 
     public function get(string $aggregateType, string $aggregateId): ?Snapshot
@@ -113,7 +120,7 @@ EOT;
                 $statement->bindValue(++$position, $snapshot->aggregateType());
                 $statement->bindValue(++$position, $snapshot->lastVersion(), PDO::PARAM_INT);
                 $statement->bindValue(++$position, $snapshot->createdAt()->format('Y-m-d\TH:i:s.u'));
-                $statement->bindValue(++$position, serialize($snapshot->aggregateRoot()));
+                $statement->bindValue(++$position, $this->serializer->serialize($snapshot->aggregateRoot())));
             }
             $statements[] = $statement;
         }
@@ -165,6 +172,6 @@ SQL;
             $serialized = stream_get_contents($serialized);
         }
 
-        return unserialize($serialized);
+        return $this->serializer->deserialize($serialized);
     }
 }
