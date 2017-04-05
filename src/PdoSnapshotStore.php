@@ -121,7 +121,7 @@ EOT;
                 $statement->bindValue(++$position, $snapshot->aggregateType());
                 $statement->bindValue(++$position, $snapshot->lastVersion(), PDO::PARAM_INT);
                 $statement->bindValue(++$position, $snapshot->createdAt()->format('Y-m-d\TH:i:s.u'));
-                $statement->bindValue(++$position, $this->serializer->serialize($snapshot->aggregateRoot())));
+                $statement->bindValue(++$position, $this->serializer->serialize($snapshot->aggregateRoot()));
             }
             $statements[] = $statement;
         }
