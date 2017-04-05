@@ -63,7 +63,7 @@ class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
         $config = $this->options($config, $this->configId);
 
         $connection = $container->get($config['connection_service']);
-        $serializer = $container->has($config['serialize']) ? $container->get($config['serialize']) : new CallbackSerializer(null, null);
+        $serializer = $config['serializer'] instanceof Serializer ? $config['serializer'] : $container->get($config['serialize']);
 
         return new PdoSnapshotStore(
             $connection,
@@ -95,7 +95,7 @@ class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
         return [
             'snapshot_table_map' => [],
             'default_snapshot_table_name' => 'snapshots',
-            'serializer' => Serializer::class,
+            'serializer' => new CallbackSerializer(null, null),
         ];
     }
 }

@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Prooph\SnapshotStore\Pdo;
 
 use PDO;
+use Prooph\SnapshotStore\CallbackSerializer;
 use Prooph\SnapshotStore\Serializer;
 use Prooph\SnapshotStore\Snapshot;
 use Prooph\SnapshotStore\SnapshotStore;
@@ -45,12 +46,12 @@ final class PdoSnapshotStore implements SnapshotStore
         PDO $connection,
         array $snapshotTableMap = [],
         string $defaultSnapshotTableName = 'snapshots',
-        Serializer $serializer
+        Serializer $serializer = null
     ) {
         $this->connection = $connection;
         $this->snapshotTableMap = $snapshotTableMap;
         $this->defaultSnapshotTableName = $defaultSnapshotTableName;
-        $this->serializer = $serializer;
+        $this->serializer = $serializer ?: new CallbackSerializer(null, null);
     }
 
     public function get(string $aggregateType, string $aggregateId): ?Snapshot
