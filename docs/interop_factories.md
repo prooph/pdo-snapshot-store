@@ -31,6 +31,7 @@ Sample configuration:
                     'My\AggregateOne' => 'one_snapshots',
                     'My\AggregteTwo' => 'two_snapshots',
                 ],
+                'serializer' => 'My\Serializer' //<-- optional, service name of a custom serializer
             ],
         ],
     ],
