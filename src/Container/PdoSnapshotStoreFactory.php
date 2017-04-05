@@ -17,7 +17,7 @@ use Interop\Config\ProvidesDefaultOptions;
 use Interop\Config\RequiresConfigId;
 use Interop\Config\RequiresMandatoryOptions;
 use PDO;
-use Prooph\SnapshotStore\Pdo\CallbackSerializer;
+use Prooph\SnapshotStore\CallbackSerializer;
 use Prooph\SnapshotStore\Pdo\PdoSnapshotStore;
 use Prooph\SnapshotStore\Serializer;
 use Psr\Container\ContainerInterface;
