@@ -17,7 +17,9 @@ use Interop\Config\ProvidesDefaultOptions;
 use Interop\Config\RequiresConfigId;
 use Interop\Config\RequiresMandatoryOptions;
 use PDO;
+use Prooph\SnapshotStore\Pdo\CallbackSerializer;
 use Prooph\SnapshotStore\Pdo\PdoSnapshotStore;
+use Prooph\SnapshotStore\Serializer;
 use Psr\Container\ContainerInterface;
 
 class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigId, RequiresMandatoryOptions
@@ -61,11 +63,13 @@ class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
         $config = $this->options($config, $this->configId);
 
         $connection = $container->get($config['connection_service']);
+        $serializer = $container->has($config['serialize']) ? $container->get($config['serialize']) : new CallbackSerializer(null, null);
 
         return new PdoSnapshotStore(
             $connection,
             $config['snapshot_table_map'],
-            $config['default_snapshot_table_name']
+            $config['default_snapshot_table_name'],
+            $serializer
         );
     }
 
@@ -91,6 +95,7 @@ class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
         return [
             'snapshot_table_map' => [],
             'default_snapshot_table_name' => 'snapshots',
+            'serializer' => Serializer::class,
         ];
     }
 }

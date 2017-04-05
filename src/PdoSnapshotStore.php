@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Prooph\SnapshotStore\Pdo;
 
 use PDO;
+use Prooph\SnapshotStore\Serializer;
 use Prooph\SnapshotStore\Snapshot;
 use Prooph\SnapshotStore\SnapshotStore;
 
@@ -36,7 +37,7 @@ final class PdoSnapshotStore implements SnapshotStore
     private $defaultSnapshotTableName;
 
     /**
-     * @var SerializerStrategy
+     * @var Serializer
      */
     private $serializer;
 
@@ -44,12 +45,12 @@ final class PdoSnapshotStore implements SnapshotStore
         PDO $connection,
         array $snapshotTableMap = [],
         string $defaultSnapshotTableName = 'snapshots',
-        SerializerStrategy $serializer = null
+        Serializer $serializer
     ) {
         $this->connection = $connection;
         $this->snapshotTableMap = $snapshotTableMap;
         $this->defaultSnapshotTableName = $defaultSnapshotTableName;
-        $this->serializer = $serializer ?: new Serializer(null, null);
+        $this->serializer = $serializer;
     }
 
     public function get(string $aggregateType, string $aggregateId): ?Snapshot
@@ -172,6 +173,6 @@ SQL;
             $serialized = stream_get_contents($serialized);
         }
 
-        return $this->serializer->deserialize($serialized);
+        return $this->serializer->unserialize($serialized);
     }
 }

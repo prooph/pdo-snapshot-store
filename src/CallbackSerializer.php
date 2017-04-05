@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace Prooph\SnapshotStore\Pdo;
 
-final class DefaultSerializerStrategy implements SerializerStrategy
+use Prooph\SnapshotStore\Serializer;
+
+final class CallbackSerializer implements Serializer
 {
     /**
      * callable
@@ -26,8 +28,8 @@ final class DefaultSerializerStrategy implements SerializerStrategy
 
     public function __construct(?callable $serializer, ?callable $deserialize)
     {
-        if ($serializer && $deserialize) {
-            $this->serializer  = $serializer;
+        if (null !== $serializer && null !== $deserialize) {
+            $this->serializer = $serializer;
             $this->deserialize = $deserialize;
         }
     }
@@ -45,7 +47,7 @@ final class DefaultSerializerStrategy implements SerializerStrategy
      * @param string $serialized
      * @return object|array
      */
-    public function deserialize(string $serialized)
+    public function unserialize(string $serialized)
     {
         return call_user_func_array($this->deserialize, [$serialized]);
     }
