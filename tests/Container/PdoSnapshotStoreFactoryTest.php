@@ -12,7 +12,9 @@ declare(strict_types=1);
 
 namespace ProophTest\SnapshotStore\Pdo\Container;
 
+use PDO;
 use PHPUnit\Framework\TestCase;
+use Prooph\SnapshotStore\CallbackSerializer;
 use Prooph\SnapshotStore\Pdo\Container\PdoSnapshotStoreFactory;
 use Prooph\SnapshotStore\Pdo\PdoSnapshotStore;
 use ProophTest\SnapshotStore\Pdo\TestUtil;
@@ -51,5 +53,29 @@ class PdoSnapshotStoreFactoryTest extends TestCase
 
         $eventStoreName = 'custom';
         PdoSnapshotStoreFactory::$eventStoreName('invalid container');
+    }
+
+    /**
+     * @test
+     */
+    public function it_gets_serializer_from_container_when_not_instanceof_serializer(): void
+    {
+        $config['prooph']['pdo_snapshot_store']['default'] = [
+            'connection_service' => 'my_connection',
+            'serializer' => 'serializer_servicename',
+        ];
+
+        $connection = $this->prophesize(PDO::class);
+
+        $container = $this->prophesize(ContainerInterface::class);
+
+        $container->get('my_connection')->willReturn($connection)->shouldBeCalled();
+        $container->get('config')->willReturn($config)->shouldBeCalled();
+        $container->get('serializer_servicename')->willReturn(new CallbackSerializer(function() {}, function() {}))->shouldBeCalled();
+
+        $factory = new PdoSnapshotStoreFactory();
+        $snapshotStore = $factory($container->reveal());
+
+        $this->assertInstanceOf(PdoSnapshotStore::class, $snapshotStore);
     }
 }
