@@ -16,6 +16,7 @@ use PDO;
 use PHPUnit\Framework\TestCase;
 use Prooph\SnapshotStore\Pdo\PdoSnapshotStore;
 use Prooph\SnapshotStore\Snapshot;
+use ProophTest\SnapshotStore\Pdo\Mock\AggregateRoot;
 
 class PdoSnapshotStoreTest extends TestCase
 {
@@ -35,8 +36,7 @@ class PdoSnapshotStoreTest extends TestCase
     public function it_saves_and_reads()
     {
         $aggregateType = 'baz';
-        $aggregateRoot = new \stdClass();
-        $aggregateRoot->foo = 'bar';
+        $aggregateRoot = new AggregateRoot();
 
         $time = (string) microtime(true);
         if (false === strpos($time, '.')) {
