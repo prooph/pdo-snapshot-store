@@ -151,7 +151,7 @@ EOT;
     protected function setUp(): void
     {
         $this->connection = TestUtil::getConnection();
-
+        $this->connection->exec('DROP TABLE IF EXISTS snapshots');
         switch (TestUtil::getDatabaseVendor()) {
             case 'pdo_mysql':
                 $this->connection->exec(file_get_contents(__DIR__ . '/../scripts/mysql_snapshot_table.sql'));
@@ -168,9 +168,9 @@ EOT;
 
     protected function tearDown(): void
     {
-        $statement = $this->connection->prepare('TRUNCATE snapshots');
+        $statement = $this->connection->prepare('DROP TABLE IF EXISTS snapshots');
         $statement->execute();
-        $statement = $this->connection->prepare('TRUNCATE bar');
+        $statement = $this->connection->prepare('DROP TABLE IF EXISTS bar');
         $statement->execute();
     }
 
