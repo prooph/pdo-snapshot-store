@@ -13,7 +13,9 @@ declare(strict_types=1);
 namespace Prooph\SnapshotStore\Pdo;
 
 use PDO;
+use PDOException;
 use Prooph\SnapshotStore\CallbackSerializer;
+use Prooph\SnapshotStore\Pdo\Exception\RuntimeException;
 use Prooph\SnapshotStore\Serializer;
 use Prooph\SnapshotStore\Snapshot;
 use Prooph\SnapshotStore\SnapshotStore;
@@ -63,7 +65,15 @@ SELECT * FROM $table WHERE aggregate_id = ? ORDER BY last_version DESC
 EOT;
 
         $statement = $this->connection->prepare($query);
-        $statement->execute([$aggregateId]);
+        try {
+            $statement->execute([$aggregateId]);
+        } catch (PDOException $exception) {
+            // ignore and check error code
+        }
+
+        if ($statement->errorCode() !== '00000') {
+            throw RuntimeException::fromStatementErrorInfo($statement->errorInfo());
+        }
 
         $result = $statement->fetch(\PDO::FETCH_OBJ);
 
@@ -129,8 +139,13 @@ EOT;
 
         $this->connection->beginTransaction();
 
-        foreach ($statements as $statement) {
-            $statement->execute();
+        try {
+            foreach ($statements as $statement) {
+                $statement->execute();
+            }
+        } catch (PDOException $exception) {
+            $this->connection->rollBack();
+            throw RuntimeException::fromStatementErrorInfo($statement->errorInfo());
         }
 
         $this->connection->commit();
@@ -148,7 +163,16 @@ SQL;
 
         $this->connection->beginTransaction();
 
-        $statement->execute([$aggregateType]);
+        try {
+            $statement->execute([$aggregateType]);
+        } catch (PDOException $exception) {
+            // ignore and check error code
+        }
+
+        if ($statement->errorCode() !== '00000') {
+            $this->connection->rollBack();
+            throw RuntimeException::fromStatementErrorInfo($statement->errorInfo());
+        }
 
         $this->connection->commit();
     }
