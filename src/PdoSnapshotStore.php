@@ -44,16 +44,23 @@ final class PdoSnapshotStore implements SnapshotStore
      */
     private $serializer;
 
+    /**
+     * @var bool
+     */
+    private $disableTransactionHandling;
+
     public function __construct(
         PDO $connection,
         array $snapshotTableMap = [],
         string $defaultSnapshotTableName = 'snapshots',
-        Serializer $serializer = null
+        Serializer $serializer = null,
+        bool $disableTransactionHandling = false
     ) {
         $this->connection = $connection;
         $this->snapshotTableMap = $snapshotTableMap;
         $this->defaultSnapshotTableName = $defaultSnapshotTableName;
         $this->serializer = $serializer ?: new CallbackSerializer(null, null);
+        $this->disableTransactionHandling = $disableTransactionHandling;
     }
 
     public function get(string $aggregateType, string $aggregateId): ?Snapshot
@@ -65,6 +72,7 @@ SELECT * FROM $table WHERE aggregate_id = ? ORDER BY last_version DESC
 EOT;
 
         $statement = $this->connection->prepare($query);
+
         try {
             $statement->execute([$aggregateId]);
         } catch (PDOException $exception) {
@@ -137,18 +145,25 @@ EOT;
             $statements[] = $statement;
         }
 
-        $this->connection->beginTransaction();
+        if (! $this->disableTransactionHandling) {
+            $this->connection->beginTransaction();
+        }
 
         try {
             foreach ($statements as $statement) {
                 $statement->execute();
             }
         } catch (PDOException $exception) {
-            $this->connection->rollBack();
+            if (! $this->disableTransactionHandling) {
+                $this->connection->rollBack();
+            }
+
             throw RuntimeException::fromStatementErrorInfo($statement->errorInfo());
         }
 
-        $this->connection->commit();
+        if (! $this->disableTransactionHandling) {
+            $this->connection->commit();
+        }
     }
 
     public function removeAll(string $aggregateType): void
@@ -161,7 +176,9 @@ SQL;
 
         $statement = $this->connection->prepare($sql);
 
-        $this->connection->beginTransaction();
+        if (! $this->disableTransactionHandling) {
+            $this->connection->beginTransaction();
+        }
 
         try {
             $statement->execute([$aggregateType]);
@@ -170,11 +187,16 @@ SQL;
         }
 
         if ($statement->errorCode() !== '00000') {
-            $this->connection->rollBack();
+            if (! $this->disableTransactionHandling) {
+                $this->connection->rollBack();
+            }
+
             throw RuntimeException::fromStatementErrorInfo($statement->errorInfo());
         }
 
-        $this->connection->commit();
+        if (! $this->disableTransactionHandling) {
+            $this->connection->commit();
+        }
     }
 
     private function getTableName(string $aggregateType): string
