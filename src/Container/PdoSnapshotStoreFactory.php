@@ -68,7 +68,8 @@ class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
             $connection,
             $config['snapshot_table_map'],
             $config['default_snapshot_table_name'],
-            $serializer
+            $serializer,
+            $config['disable_transaction_handling']
         );
     }
 
@@ -95,6 +96,7 @@ class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
             'snapshot_table_map' => [],
             'default_snapshot_table_name' => 'snapshots',
             'serializer' => new CallbackSerializer(null, null),
+            'disable_transaction_handling' => false,
         ];
     }
 }

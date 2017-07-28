@@ -148,6 +148,54 @@ EOT;
         $this->assertNotNull($statement->fetch(\PDO::FETCH_ASSOC));
     }
 
+    public function it_ignores_transaction_handling_if_flag_is_enabled(): void
+    {
+        $this->connection = $this->prophesize(PDO::class);
+        $this->connection->beginTransaction()->shouldNotBeCalled();
+        $this->connection->commmit()->shouldNotBeCalled();
+        $this->connection->rollback()->shouldNotBeCalled();
+        $this->connection = $this->connection->reveal();
+
+        $this->connection->exec('DROP TABLE IF EXISTS snapshots');
+        switch (TestUtil::getDatabaseVendor()) {
+            case 'pdo_mysql':
+                $this->connection->exec(file_get_contents(__DIR__ . '/../scripts/mysql_snapshot_table.sql'));
+                break;
+            case 'pdo_pgsql':
+                $this->connection->exec(file_get_contents(__DIR__ . '/../scripts/postgres_snapshot_table.sql'));
+                break;
+            default:
+                throw new \RuntimeException('Invalid database vendor');
+        }
+
+        $this->snapshotStore = new PdoSnapshotStore(
+            $this->connection,
+            ['foo' => 'bar'],
+            'snapshots',
+            null,
+            true
+        );
+
+        $this->createTable('bar');
+
+        $aggregateType = 'foo';
+        $aggregateRoot = new \stdClass();
+        $aggregateRoot->foo = 'bar';
+        $time = (string) microtime(true);
+
+        if (false === strpos($time, '.')) {
+            $time .= '.0000';
+        }
+
+        $now = \DateTimeImmutable::createFromFormat('U.u', $time);
+
+        $snapshot = new Snapshot($aggregateType, 'id', $aggregateRoot, 1, $now);
+
+        $this->snapshotStore->save($snapshot);
+
+        $this->snapshotStore->removeAll('foo');
+    }
+
     protected function setUp(): void
     {
         $this->connection = TestUtil::getConnection();
