@@ -1,4 +1,14 @@
-# Setup
+# Overview
+
+PDO implementation of snapshot store
+
+## Installation
+
+```bash
+composer require prooph/pdo-snapshot-store
+```
+
+## Setup
 
 The PDO SnapshotStore is currently tested with 3 backends, MariaDB, MySQL and Postgres.
 
