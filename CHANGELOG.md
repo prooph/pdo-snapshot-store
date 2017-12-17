@@ -1,7 +1,18 @@
 # Change Log
 
-## [v1.3.0](https://github.com/prooph/pdo-snapshot-store/tree/v1.3.0)
+## [v1.4.0](https://github.com/prooph/pdo-snapshot-store/tree/v1.4.0)
 
+[Full Changelog](https://github.com/prooph/pdo-snapshot-store/compare/v1.3.0...v1.4.0)
+
+**Implemented enhancements:**
+
+- test php 7.2 on travis [\#18](https://github.com/prooph/pdo-snapshot-store/pull/18) ([prolic](https://github.com/prolic))
+
+**Merged pull requests:**
+
+- Restructure docs [\#17](https://github.com/prooph/pdo-snapshot-store/pull/17) ([codeliner](https://github.com/codeliner))
+
+## [v1.3.0](https://github.com/prooph/pdo-snapshot-store/tree/v1.3.0) (2017-07-30)
 [Full Changelog](https://github.com/prooph/pdo-snapshot-store/compare/v1.2.0...v1.3.0)
 
 **Implemented enhancements:**
