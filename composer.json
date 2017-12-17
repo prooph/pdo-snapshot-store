@@ -65,10 +65,12 @@
     "scripts": {
         "check": [
             "@cs",
-            "@test"
+            "@test",
+            "@docheader"
         ],
         "cs": "php-cs-fixer fix -v --diff --dry-run",
         "cs-fix": "php-cs-fixer fix -v --diff",
+        "docheader": "docheader check src/ tests/",
         "test": "phpunit"
     }
 }
