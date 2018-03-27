@@ -28,6 +28,28 @@ class PdoSnapshotStoreFactoryTest extends TestCase
     public function it_creates_adapter_via_connection_service(): void
     {
         $config['prooph']['pdo_snapshot_store']['default'] = [
+            'connection' => 'my_connection',
+        ];
+
+        $connection = TestUtil::getConnection();
+
+        $container = $this->prophesize(ContainerInterface::class);
+
+        $container->get('my_connection')->willReturn($connection)->shouldBeCalled();
+        $container->get('config')->willReturn($config)->shouldBeCalled();
+
+        $factory = new PdoSnapshotStoreFactory();
+        $snapshotStore = $factory($container->reveal());
+
+        $this->assertInstanceOf(PdoSnapshotStore::class, $snapshotStore);
+    }
+
+    /**
+     * @test
+     */
+    public function it_still_works_with_deprecated_connection_service_key(): void
+    {
+        $config['prooph']['pdo_snapshot_store']['default'] = [
             'connection_service' => 'my_connection',
         ];
 
@@ -61,7 +83,7 @@ class PdoSnapshotStoreFactoryTest extends TestCase
     public function it_gets_serializer_from_container_when_not_instanceof_serializer(): void
     {
         $config['prooph']['pdo_snapshot_store']['default'] = [
-            'connection_service' => 'my_connection',
+            'connection' => 'my_connection',
             'serializer' => 'serializer_servicename',
         ];
 
