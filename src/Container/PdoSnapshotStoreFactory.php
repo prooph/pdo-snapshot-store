@@ -68,7 +68,7 @@ class PdoSnapshotStoreFactory implements ProvidesDefaultOptions, RequiresConfigI
 
             $config = &$config[$this->configId] ?? [];
 
-            if (!isset($config['connection']) && isset($config['connection_service'])) {
+            if (! isset($config['connection']) && isset($config['connection_service'])) {
                 $config['connection'] = $config['connection_service'];
             }
 
