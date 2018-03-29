@@ -25,7 +25,7 @@ Sample configuration:
     'prooph' => [
         'pdo_snapshot_store' => [
             'default' => [
-                'connection_service' => 'my_pdo_connection', //<-- service name of your pdo connection
+                'connection' => 'my_pdo_connection', //<-- service name of your pdo connection
                 'default_snapshot_table_name' => 'snapshots', //<-- table name of your snapshots, defaults to `snapshots`
                 'snapshot_table_map' => [ //<-- Array with key = aggregate type, value = snapshot table name, defaults to empty array
                     'My\AggregateOne' => 'one_snapshots',
