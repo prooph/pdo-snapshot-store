@@ -1,7 +1,25 @@
 # Change Log
 
-## [v1.4.0](https://github.com/prooph/pdo-snapshot-store/tree/v1.4.0)
+## [v1.5.0](https://github.com/prooph/pdo-snapshot-store/tree/v1.5.0)
 
+[Full Changelog](https://github.com/prooph/pdo-snapshot-store/compare/v1.4.0...v1.5.0)
+
+**Fixed bugs:**
+
+- snapshot have no index \(postgres\) [\#23](https://github.com/prooph/pdo-snapshot-store/issues/23)
+- adds PKs to schema's [\#24](https://github.com/prooph/pdo-snapshot-store/pull/24) ([basz](https://github.com/basz))
+
+**Closed issues:**
+
+- snapshots are created over and over again Postgres [\#20](https://github.com/prooph/pdo-snapshot-store/issues/20)
+- Consistent connection key [\#19](https://github.com/prooph/pdo-snapshot-store/issues/19)
+
+**Merged pull requests:**
+
+- Don't remove deprecated config option [\#22](https://github.com/prooph/pdo-snapshot-store/pull/22) ([sandrokeil](https://github.com/sandrokeil))
+- Issues/19 [\#21](https://github.com/prooph/pdo-snapshot-store/pull/21) ([basz](https://github.com/basz))
+
+## [v1.4.0](https://github.com/prooph/pdo-snapshot-store/tree/v1.4.0) (2017-12-17)
 [Full Changelog](https://github.com/prooph/pdo-snapshot-store/compare/v1.3.0...v1.4.0)
 
 **Implemented enhancements:**
