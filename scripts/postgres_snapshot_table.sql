@@ -4,5 +4,5 @@ CREATE TABLE snapshots (
   last_version INT NOT NULL,
   created_at CHAR(26) NOT NULL,
   aggregate_root BYTEA,
-  UNIQUE (aggregate_id)
+  PRIMARY KEY (aggregate_id)
 );

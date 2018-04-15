@@ -12,6 +12,22 @@ PDO implementation of snapshot store
 
 You can install prooph/pdo-snapshot-store via composer by adding `"prooph/pdo-snapshot-store": "^1.0"` as requirement to your composer.json.
 
+## Upgrade
+
+If you come from version 1.4.0 you are advised to manually update the table schema to fix an omitted primary key. You can issue the following statements or drop the snapshot table, recreate them from the provided scripts and restart projections.
+
+MySql
+
+```sql
+ALTER TABLE `snapshots` DROP INDEX `ix_aggregate_id`, ADD PRIMARY KEY(`aggregate_id`);
+```
+
+Postgres
+
+```sql
+ALTER TABLE "snapshots" DROP CONSTRAINT "snapshots_aggregate_id_key", ADD PRIMARY KEY ("aggregate_id");
+```
+
 ## Support
 
 - Ask questions on Stack Overflow tagged with [#prooph](https://stackoverflow.com/questions/tagged/prooph).

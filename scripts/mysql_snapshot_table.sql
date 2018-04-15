@@ -4,5 +4,5 @@ CREATE TABLE `snapshots` (
   `last_version` INT(11) NOT NULL,
   `created_at` CHAR(26) NOT NULL,
   `aggregate_root` BLOB,
-  UNIQUE KEY `ix_aggregate_id` (`aggregate_id`)
+  PRIMARY KEY (`aggregate_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
