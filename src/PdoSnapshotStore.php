@@ -68,7 +68,7 @@ final class PdoSnapshotStore implements SnapshotStore
         $table = $this->getTableName($aggregateType);
 
         $query = <<<EOT
-SELECT * FROM $table WHERE aggregate_id = ? ORDER BY last_version DESC 
+SELECT * FROM `$table` WHERE aggregate_id = ? ORDER BY last_version DESC 
 EOT;
 
         $statement = $this->connection->prepare($query);
@@ -117,7 +117,7 @@ EOT;
         foreach ($deletes as $table => $aggregateIds) {
             $ids = implode(', ', array_fill(0, count($aggregateIds), '?'));
             $deleteSql = <<<EOT
-DELETE FROM $table where aggregate_id IN ($ids);
+DELETE FROM `$table` where aggregate_id IN ($ids);
 EOT;
             $statement = $this->connection->prepare($deleteSql);
             foreach ($aggregateIds as $position => $aggregateId) {
@@ -130,7 +130,7 @@ EOT;
         foreach ($inserts as $table => $snapshots) {
             $allPlaces = implode(', ', array_fill(0, count($snapshots), '(?, ?, ?, ?, ?)'));
             $insertSql = <<<EOT
-INSERT INTO $table (aggregate_id, aggregate_type, last_version, created_at, aggregate_root)
+INSERT INTO `$table` (aggregate_id, aggregate_type, last_version, created_at, aggregate_root)
 VALUES $allPlaces
 EOT;
             $statement = $this->connection->prepare($insertSql);
@@ -171,7 +171,7 @@ EOT;
         $table = $this->getTableName($aggregateType);
 
         $sql = <<<SQL
-DELETE FROM $table WHERE aggregate_type = ?;
+DELETE FROM `$table` WHERE aggregate_type = ?;
 SQL;
 
         $statement = $this->connection->prepare($sql);
