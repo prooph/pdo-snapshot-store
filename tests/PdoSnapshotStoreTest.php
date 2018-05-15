@@ -109,6 +109,7 @@ class PdoSnapshotStoreTest extends TestCase
     public function it_returns_early_when_no_snapshots_given()
     {
         $pdo = $this->prophesize(PDO::class);
+        $pdo->getAttribute(PDO::ATTR_DRIVER_NAME)->willReturn('pgsql'); // Driver does not matter for this test
         $pdo->beginTransaction()->shouldNotBeCalled();
 
         $snapshotStore = new PdoSnapshotStore($pdo->reveal());
