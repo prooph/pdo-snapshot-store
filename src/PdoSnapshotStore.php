@@ -49,6 +49,11 @@ final class PdoSnapshotStore implements SnapshotStore
      */
     private $disableTransactionHandling;
 
+    /**
+     * @var string
+     */
+    private $vendor;
+
     public function __construct(
         PDO $connection,
         array $snapshotTableMap = [],
@@ -61,6 +66,7 @@ final class PdoSnapshotStore implements SnapshotStore
         $this->defaultSnapshotTableName = $defaultSnapshotTableName;
         $this->serializer = $serializer ?: new CallbackSerializer(null, null);
         $this->disableTransactionHandling = $disableTransactionHandling;
+        $this->vendor = $this->connection->getAttribute(PDO::ATTR_DRIVER_NAME);
     }
 
     public function get(string $aggregateType, string $aggregateId): ?Snapshot
@@ -207,7 +213,12 @@ SQL;
             $tableName = $this->defaultSnapshotTableName;
         }
 
-        return $tableName;
+        switch ($this->vendor) {
+            case 'pgsql':
+                return '"'.$tableName.'"';
+            default:
+                return "`$tableName`";
+        }
     }
 
     /**
