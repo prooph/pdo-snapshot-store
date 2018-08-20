@@ -4,6 +4,12 @@
 [![Coverage Status](https://coveralls.io/repos/prooph/pdo-snapshot-store/badge.svg?branch=master&service=github)](https://coveralls.io/github/prooph/pdo-snapshot-store?branch=master)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/prooph/improoph)
 
+## Important
+
+This library will receive support until December 31, 2019 and will then be deprecated.
+
+For further information see the official announcement here: [https://www.sasaprolic.com/2018/08/the-future-of-prooph-components.html](https://www.sasaprolic.com/2018/08/the-future-of-prooph-components.html)
+
 ## Overview
 
 PDO implementation of snapshot store
