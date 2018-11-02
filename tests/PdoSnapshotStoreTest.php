@@ -1,6 +1,7 @@
 <?php
+
 /**
- * This file is part of the prooph/pdo-snapshot-store.
+ * This file is part of prooph/pdo-snapshot-store.
  * (c) 2016-2018 prooph software GmbH <contact@prooph.de>
  * (c) 2016-2018 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
@@ -38,8 +39,8 @@ class PdoSnapshotStoreTest extends TestCase
         $aggregateType = 'baz';
         $aggregateRoot = new AggregateRoot();
 
-        $time = (string) microtime(true);
-        if (false === strpos($time, '.')) {
+        $time = (string) \microtime(true);
+        if (false === \strpos($time, '.')) {
             $time .= '.0000';
         }
 
@@ -77,8 +78,8 @@ class PdoSnapshotStoreTest extends TestCase
 
         $aggregateRoot2 = ['foo' => 'baz'];
 
-        $time = (string) microtime(true);
-        if (false === strpos($time, '.')) {
+        $time = (string) \microtime(true);
+        if (false === \strpos($time, '.')) {
             $time .= '.0000';
         }
 
@@ -127,9 +128,9 @@ class PdoSnapshotStoreTest extends TestCase
         $aggregateType = 'foo';
         $aggregateRoot = new \stdClass();
         $aggregateRoot->foo = 'bar';
-        $time = (string) microtime(true);
+        $time = (string) \microtime(true);
 
-        if (false === strpos($time, '.')) {
+        if (false === \strpos($time, '.')) {
             $time .= '.0000';
         }
 
@@ -160,10 +161,10 @@ EOT;
         $this->connection->exec('DROP TABLE IF EXISTS snapshots');
         switch (TestUtil::getDatabaseVendor()) {
             case 'pdo_mysql':
-                $this->connection->exec(file_get_contents(__DIR__ . '/../scripts/mysql_snapshot_table.sql'));
+                $this->connection->exec(\file_get_contents(__DIR__ . '/../scripts/mysql_snapshot_table.sql'));
                 break;
             case 'pdo_pgsql':
-                $this->connection->exec(file_get_contents(__DIR__ . '/../scripts/postgres_snapshot_table.sql'));
+                $this->connection->exec(\file_get_contents(__DIR__ . '/../scripts/postgres_snapshot_table.sql'));
                 break;
             default:
                 throw new \RuntimeException('Invalid database vendor');
@@ -182,9 +183,9 @@ EOT;
         $aggregateType = 'foo';
         $aggregateRoot = new \stdClass();
         $aggregateRoot->foo = 'bar';
-        $time = (string) microtime(true);
+        $time = (string) \microtime(true);
 
-        if (false === strpos($time, '.')) {
+        if (false === \strpos($time, '.')) {
             $time .= '.0000';
         }
 
@@ -203,10 +204,10 @@ EOT;
         $this->connection->exec('DROP TABLE IF EXISTS snapshots');
         switch (TestUtil::getDatabaseVendor()) {
             case 'pdo_mysql':
-                $this->connection->exec(file_get_contents(__DIR__ . '/../scripts/mysql_snapshot_table.sql'));
+                $this->connection->exec(\file_get_contents(__DIR__ . '/../scripts/mysql_snapshot_table.sql'));
                 break;
             case 'pdo_pgsql':
-                $this->connection->exec(file_get_contents(__DIR__ . '/../scripts/postgres_snapshot_table.sql'));
+                $this->connection->exec(\file_get_contents(__DIR__ . '/../scripts/postgres_snapshot_table.sql'));
                 break;
             default:
                 throw new \RuntimeException('Invalid database vendor');
@@ -227,16 +228,16 @@ EOT;
     {
         switch (TestUtil::getDatabaseVendor()) {
             case 'pdo_mysql':
-                $sql = file_get_contents(__DIR__ . '/../scripts/mysql_snapshot_table.sql');
+                $sql = \file_get_contents(__DIR__ . '/../scripts/mysql_snapshot_table.sql');
                 break;
             case 'pdo_pgsql':
-                $sql = file_get_contents(__DIR__ . '/../scripts/postgres_snapshot_table.sql');
+                $sql = \file_get_contents(__DIR__ . '/../scripts/postgres_snapshot_table.sql');
                 break;
             default:
                 throw new \RuntimeException('Invalid database vendor');
         }
 
-        $sql = str_replace('snapshots', $name, $sql);
+        $sql = \str_replace('snapshots', $name, $sql);
         $this->connection->exec($sql);
     }
 }

@@ -1,6 +1,7 @@
 <?php
+
 /**
- * This file is part of the prooph/pdo-snapshot-store.
+ * This file is part of prooph/pdo-snapshot-store.
  * (c) 2016-2018 prooph software GmbH <contact@prooph.de>
  * (c) 2016-2018 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
@@ -39,7 +40,7 @@ abstract class TestUtil
         $dsn .= 'host=' . $connectionParams['host'] . $separator;
         $dsn .= 'port=' . $connectionParams['port'] . $separator;
         $dsn .= 'dbname=' . $connectionParams['dbname'] . $separator;
-        $dsn = rtrim($dsn);
+        $dsn = \rtrim($dsn);
 
         return new PDO($dsn, $connectionParams['user'], $connectionParams['password'], $connectionParams['options']);
     }
@@ -50,7 +51,7 @@ abstract class TestUtil
             throw new \RuntimeException('No connection params given');
         }
 
-        return getenv('db_name');
+        return \getenv('db_name');
     }
 
     public static function getDatabaseVendor(): string
@@ -59,7 +60,7 @@ abstract class TestUtil
             throw new \RuntimeException('No connection params given');
         }
 
-        return getenv('db_type');
+        return \getenv('db_type');
     }
 
     public static function getConnectionParams(): array
@@ -73,7 +74,7 @@ abstract class TestUtil
 
     private static function hasRequiredConnectionParams(): bool
     {
-        $env = getenv();
+        $env = \getenv();
 
         return isset(
             $env['db_type'],
@@ -88,13 +89,13 @@ abstract class TestUtil
     private static function getSpecifiedConnectionParams(): array
     {
         return [
-            'driver' => getenv('db_type'),
-            'user' => getenv('db_username'),
-            'password' => getenv('db_password'),
-            'host' => getenv('db_host'),
-            'dbname' => getenv('db_name'),
-            'port' => getenv('db_port'),
-            'options' => [PDO::ATTR_ERRMODE => (int) getenv('DB_ATTR_ERRMODE')],
+            'driver' => \getenv('db_type'),
+            'user' => \getenv('db_username'),
+            'password' => \getenv('db_password'),
+            'host' => \getenv('db_host'),
+            'dbname' => \getenv('db_name'),
+            'port' => \getenv('db_port'),
+            'options' => [PDO::ATTR_ERRMODE => (int) \getenv('DB_ATTR_ERRMODE')],
         ];
     }
 }

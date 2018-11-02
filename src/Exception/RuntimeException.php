@@ -1,6 +1,7 @@
 <?php
+
 /**
- * This file is part of the prooph/pdo-snapshot-store.
+ * This file is part of prooph/pdo-snapshot-store.
  * (c) 2016-2018 prooph software GmbH <contact@prooph.de>
  * (c) 2016-2018 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
@@ -19,7 +20,7 @@ class RuntimeException extends PHPRuntimeException
     public static function fromStatementErrorInfo(array $errorInfo): RuntimeException
     {
         return new self(
-            sprintf(
+            \sprintf(
                 "Error %s. \nError-Info: %s",
                 $errorInfo[0],
                 $errorInfo[2]
