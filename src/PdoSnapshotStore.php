@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of the prooph/pdo-snapshot-store.
  * (c) 2016-2018 prooph software GmbH <contact@prooph.de>
@@ -121,7 +122,7 @@ EOT;
         $statements = [];
 
         foreach ($deletes as $table => $aggregateIds) {
-            $ids = implode(', ', array_fill(0, count($aggregateIds), '?'));
+            $ids = \implode(', ', \array_fill(0, \count($aggregateIds), '?'));
             $deleteSql = <<<EOT
 DELETE FROM $table where aggregate_id IN ($ids);
 EOT;
@@ -134,7 +135,7 @@ EOT;
         }
 
         foreach ($inserts as $table => $snapshots) {
-            $allPlaces = implode(', ', array_fill(0, count($snapshots), '(?, ?, ?, ?, ?)'));
+            $allPlaces = \implode(', ', \array_fill(0, \count($snapshots), '(?, ?, ?, ?, ?)'));
             $insertSql = <<<EOT
 INSERT INTO $table (aggregate_id, aggregate_type, last_version, created_at, aggregate_root)
 VALUES $allPlaces
@@ -227,8 +228,8 @@ SQL;
      */
     private function unserializeAggregateRoot($serialized)
     {
-        if (is_resource($serialized)) {
-            $serialized = stream_get_contents($serialized);
+        if (\is_resource($serialized)) {
+            $serialized = \stream_get_contents($serialized);
         }
 
         return $this->serializer->unserialize($serialized);
