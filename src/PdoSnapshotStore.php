@@ -216,7 +216,16 @@ SQL;
 
         switch ($this->vendor) {
             case 'pgsql':
-                return '"'.$tableName.'"';
+                $pos = \strpos($tableName, '.');
+
+                if (false === $pos) {
+                    return '"' . $tableName . '"';
+                }
+
+                $schema = \substr($tableName, 0, $pos);
+                $table = \substr($tableName, $pos + 1);
+
+                return '"' . $schema . '"."' . $table . '"';
             default:
                 return "`$tableName`";
         }
