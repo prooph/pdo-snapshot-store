@@ -2,8 +2,8 @@
 
 /**
  * This file is part of prooph/pdo-snapshot-store.
- * (c) 2016-2018 prooph software GmbH <contact@prooph.de>
- * (c) 2016-2018 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2016-2019 prooph software GmbH <contact@prooph.de>
+ * (c) 2016-2019 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -216,7 +216,16 @@ SQL;
 
         switch ($this->vendor) {
             case 'pgsql':
-                return '"'.$tableName.'"';
+                $pos = \strpos($tableName, '.');
+
+                if (false === $pos) {
+                    return '"' . $tableName . '"';
+                }
+
+                $schema = \substr($tableName, 0, $pos);
+                $table = \substr($tableName, $pos + 1);
+
+                return '"' . $schema . '"."' . $table . '"';
             default:
                 return "`$tableName`";
         }

@@ -2,8 +2,8 @@
 
 /**
  * This file is part of prooph/pdo-snapshot-store.
- * (c) 2016-2018 prooph software GmbH <contact@prooph.de>
- * (c) 2016-2018 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2016-2019 prooph software GmbH <contact@prooph.de>
+ * (c) 2016-2019 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -198,6 +198,54 @@ EOT;
         $this->snapshotStore->removeAll('foo');
     }
 
+    /**
+     * @test
+     */
+    public function it_works_with_custom_schema()
+    {
+        if (TestUtil::getDatabaseVendor() !== 'pdo_pgsql') {
+            $this->markTestSkipped('Test case only for pdo_pgsql vendor');
+
+            return;
+        }
+
+        $this->createSchemaTable('prooph', 'snapshots');
+        $this->createSchemaTable('prooph', 'bar');
+
+        $this->snapshotStore = new PdoSnapshotStore(
+            $this->connection,
+            ['foo' => 'prooph.bar'],
+            'prooph.snapshots'
+        );
+
+        $aggregateRoot1 = new \stdClass();
+        $aggregateRoot1->foo = 'bar';
+
+        $aggregateRoot2 = new \stdClass();
+        $aggregateRoot2->foo = 'baz';
+
+        $time = (string) \microtime(true);
+        if (false === \strpos($time, '.')) {
+            $time .= '.0000';
+        }
+
+        $now = \DateTimeImmutable::createFromFormat('U.u', $time);
+
+        $snapshot1 = new Snapshot('object', 'id_one', $aggregateRoot1, 1, $now);
+        $snapshot2 = new Snapshot('foo', 'id_two', $aggregateRoot2, 2, $now);
+
+        $this->snapshotStore->save($snapshot1, $snapshot2);
+
+        $stmt = $this->connection->query('SELECT * FROM prooph.snapshots');
+        $this->assertNotNull($stmt->fetch(PDO::FETCH_ASSOC));
+
+        $stmt = $this->connection->query('SELECT * FROM prooph.bar');
+        $this->assertNotNull($stmt->fetch(PDO::FETCH_ASSOC));
+
+        $this->assertEquals($snapshot1, $this->snapshotStore->get('object', 'id_one'));
+        $this->assertEquals($snapshot2, $this->snapshotStore->get('foo', 'id_two'));
+    }
+
     protected function setUp(): void
     {
         $this->connection = TestUtil::getConnection();
@@ -222,6 +270,11 @@ EOT;
         $statement->execute();
         $statement = $this->connection->prepare('DROP TABLE IF EXISTS bar');
         $statement->execute();
+
+        if (TestUtil::getDatabaseVendor() === 'pdo_pgsql') {
+            $statement = $this->connection->prepare('DROP SCHEMA IF EXISTS prooph CASCADE');
+            $statement->execute();
+        }
     }
 
     protected function createTable(string $name)
@@ -239,5 +292,12 @@ EOT;
 
         $sql = \str_replace('snapshots', $name, $sql);
         $this->connection->exec($sql);
+    }
+
+    protected function createSchemaTable(string $schema, string $table)
+    {
+        $this->connection->exec('CREATE SCHEMA IF NOT EXISTS ' . $schema);
+
+        $this->createTable($schema . '.' . $table);
     }
 }
