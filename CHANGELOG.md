@@ -1,7 +1,24 @@
 # Change Log
 
-## [v1.5.1](https://github.com/prooph/pdo-snapshot-store/tree/v1.5.1)
+## [v1.5.2](https://github.com/prooph/pdo-snapshot-store/tree/v1.5.2)
 
+[Full Changelog](https://github.com/prooph/pdo-snapshot-store/compare/v1.5.1...v1.5.2)
+
+**Implemented enhancements:**
+
+- Correctly escape schema namespaced table name in the PostgreSQL. [\#30](https://github.com/prooph/pdo-snapshot-store/pull/30) ([ghettovoice](https://github.com/ghettovoice))
+
+**Closed issues:**
+
+- PdoSnapshotStoreFactory is trying to modificate 'config' object [\#28](https://github.com/prooph/pdo-snapshot-store/issues/28)
+- Can't stop snapshotter when it's running [\#26](https://github.com/prooph/pdo-snapshot-store/issues/26)
+
+**Merged pull requests:**
+
+- remove docheader script [\#29](https://github.com/prooph/pdo-snapshot-store/pull/29) ([basz](https://github.com/basz))
+- Update cs headers [\#27](https://github.com/prooph/pdo-snapshot-store/pull/27) ([basz](https://github.com/basz))
+
+## [v1.5.1](https://github.com/prooph/pdo-snapshot-store/tree/v1.5.1) (2018-05-16)
 [Full Changelog](https://github.com/prooph/pdo-snapshot-store/compare/v1.5.0...v1.5.1)
 
 **Fixed bugs:**
