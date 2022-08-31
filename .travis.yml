@@ -4,7 +4,7 @@ matrix:
   fast_finish: true
   include:
     - php: 7.4
-      dist: trusty
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES=""
@@ -13,7 +13,7 @@ matrix:
       addons:
         mariadb: "10.2"
     - php: 7.4
-      dist: trusty
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
@@ -22,7 +22,7 @@ matrix:
       addons:
         mariadb: "10.2"
     - php: 7.4
-      dist: trusty
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES=""
@@ -35,31 +35,31 @@ matrix:
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mysql_5_6
+        - DB=mysql_5.7
     - php: 7.4
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mysql_5_6
-    - php: 7.4
-      sudo: true
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_mysql"
         - DB=mysql_5.7
     - php: 7.4
       sudo: true
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mysql_5.7
+        - DB=mysql_8.0
+    - php: 7.4
+      sudo: true
+      env:
+        - DEPENDENCIES=""
+        - DRIVER="pdo_mysql"
+        - DB=mysql_8.0
         - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
     - php: 7.4
       sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mysql_5.7
+        - DB=mysql_8.0
     - php: 7.4
       env:
         - DEPENDENCIES=""
@@ -89,7 +89,7 @@ matrix:
       addons:
         postgresql: "9.4"
     - php: 7.4
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - EXECUTE_CS_CHECK=true
@@ -99,7 +99,7 @@ matrix:
       addons:
         postgresql: "9.5"
     - php: 7.4
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - EXECUTE_CS_CHECK=false
@@ -110,7 +110,7 @@ matrix:
       addons:
         postgresql: "9.5"
     - php: 7.4
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
@@ -118,7 +118,7 @@ matrix:
       addons:
         postgresql: "9.5"
     - php: 7.4
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
@@ -126,7 +126,7 @@ matrix:
       addons:
         postgresql: "9.6"
     - php: 7.4
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - EXECUTE_CS_CHECK=false
@@ -137,7 +137,7 @@ matrix:
       addons:
         postgresql: "9.6"
     - php: 7.4
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
@@ -145,7 +145,7 @@ matrix:
       addons:
         postgresql: "9.6"
     - php: 8.0
-      dist: trusty
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES=""
@@ -154,7 +154,7 @@ matrix:
       addons:
         mariadb: "10.2"
     - php: 8.0
-      dist: trusty
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
@@ -163,7 +163,7 @@ matrix:
       addons:
         mariadb: "10.2"
     - php: 8.0
-      dist: trusty
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES=""
@@ -176,31 +176,31 @@ matrix:
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mysql_5_6
+        - DB=mysql_5.7
     - php: 8.0
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mysql_5_6
-    - php: 8.0
-      sudo: true
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_mysql"
         - DB=mysql_5.7
     - php: 8.0
       sudo: true
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mysql_5.7
+        - DB=mysql_8.0
+    - php: 8.0
+      sudo: true
+      env:
+        - DEPENDENCIES=""
+        - DRIVER="pdo_mysql"
+        - DB=mysql_8.0
         - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
     - php: 8.0
       sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mysql_5.7
+        - DB=mysql_8.0
     - php: 8.0
       env:
         - DEPENDENCIES=""
@@ -230,7 +230,7 @@ matrix:
       addons:
         postgresql: "9.4"
     - php: 8.0
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - EXECUTE_CS_CHECK=true
@@ -240,7 +240,7 @@ matrix:
       addons:
         postgresql: "9.5"
     - php: 8.0
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - EXECUTE_CS_CHECK=false
@@ -251,7 +251,7 @@ matrix:
       addons:
         postgresql: "9.5"
     - php: 8.0
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
@@ -259,7 +259,7 @@ matrix:
       addons:
         postgresql: "9.5"
     - php: 8.0
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
@@ -267,7 +267,7 @@ matrix:
       addons:
         postgresql: "9.6"
     - php: 8.0
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - EXECUTE_CS_CHECK=false
@@ -278,7 +278,7 @@ matrix:
       addons:
         postgresql: "9.6"
     - php: 8.0
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
@@ -286,7 +286,7 @@ matrix:
       addons:
         postgresql: "9.6"
     - php: 8.1
-      dist: trusty
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES=""
@@ -295,7 +295,7 @@ matrix:
       addons:
         mariadb: "10.2"
     - php: 8.1
-      dist: trusty
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
@@ -304,7 +304,7 @@ matrix:
       addons:
         mariadb: "10.2"
     - php: 8.1
-      dist: trusty
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES=""
@@ -317,31 +317,31 @@ matrix:
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mysql_5_6
+        - DB=mysql_5.7
     - php: 8.1
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mysql_5_6
-    - php: 8.1
-      sudo: true
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_mysql"
         - DB=mysql_5.7
     - php: 8.1
       sudo: true
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mysql_5.7
+        - DB=mysql_8.0
+    - php: 8.1
+      sudo: true
+      env:
+        - DEPENDENCIES=""
+        - DRIVER="pdo_mysql"
+        - DB=mysql_8.0
         - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
     - php: 8.1
       sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mysql_5.7
+        - DB=mysql_8.0
     - php: 8.1
       env:
         - DEPENDENCIES=""
@@ -371,7 +371,7 @@ matrix:
       addons:
         postgresql: "9.4"
     - php: 8.1
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - EXECUTE_CS_CHECK=true
@@ -381,7 +381,7 @@ matrix:
       addons:
         postgresql: "9.5"
     - php: 8.1
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - EXECUTE_CS_CHECK=false
@@ -392,7 +392,7 @@ matrix:
       addons:
         postgresql: "9.5"
     - php: 8.1
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
@@ -400,7 +400,7 @@ matrix:
       addons:
         postgresql: "9.5"
     - php: 8.1
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
@@ -408,7 +408,7 @@ matrix:
       addons:
         postgresql: "9.6"
     - php: 8.1
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES=""
         - EXECUTE_CS_CHECK=false
@@ -419,7 +419,7 @@ matrix:
       addons:
         postgresql: "9.6"
     - php: 8.1
-      dist: trusty
+      dist: xenial
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
@@ -437,7 +437,7 @@ before_script:
   - mkdir -p "$HOME/.php-cs-fixer"
   - phpenv config-rm xdebug.ini
   - VENDOR=$(echo $DB | cut -d'_' -f 1)
-  - if [[ $DB == 'mysql_5.7' ]]; then bash .travis.install-mysql-5.7.sh; fi
+  - if [[ $DB == 'mysql_8.0' ]]; then bash .travis.install-mysql-8.0.sh; fi
   - if [[ $DRIVER == 'pdo_mysql' ]]; then mysql -e 'create database snapshot_tests;'; fi
   - if [[ $DRIVER == 'pdo_pgsql' ]]; then psql -c 'create database snapshot_tests;' -U postgres; fi
   - composer self-update
