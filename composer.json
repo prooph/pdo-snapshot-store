@@ -23,20 +23,20 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^7.1",
-        "prooph/snapshot-store" : "^1.1"
+        "php": "^7.4|^8.0",
+        "prooph/snapshot-store": "^1.1"
     },
     "require-dev": {
+        "php-coveralls/php-coveralls": "^2.2",
+        "phpspec/prophecy": "^1.10.3",
+        "phpunit/phpunit": "^9.5",
+        "prooph/bookdown-template": "^0.2.3",
+        "prooph/php-cs-fixer-config": "^0.5",
         "psr/container": "^1.0",
         "sandrokeil/interop-config": "^2.0.1",
-        "phpunit/phpunit": "^6.0",
-        "phpspec/prophecy": "^1.7",
-        "prooph/php-cs-fixer-config": "^0.3",
-        "prooph/bookdown-template": "^0.2.3",
-        "satooshi/php-coveralls": "^1.0",
-        "sebastian/comparator": "^1.2.2"
+        "sebastian/comparator": "^4.0"
     },
-    "suggest" : {
+    "suggest": {
         "prooph/pdo-event-store": "^1.0 For usage with MySQL or Postgres as event store",
         "prooph/snapshotter": "^2.0 Taking snapshots with ease",
         "psr/container": "^1.0 for usage of provided factories",
@@ -68,5 +68,8 @@
         "cs": "php-cs-fixer fix -v --diff --dry-run",
         "cs-fix": "php-cs-fixer fix -v --diff",
         "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
     }
 }
