@@ -13,28 +13,28 @@ matrix:
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
       addons:
-        mariadb: "10.2"
+        mariadb: "10.3"
     - php: 7.4
       dist: xenial
       sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
       addons:
-        mariadb: "10.2"
+        mariadb: "10.3"
     - php: 7.4
       dist: xenial
       sudo: true
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
         - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
       addons:
-        mariadb: "10.2"
+        mariadb: "10.3"
     - php: 7.4
       env:
         - DEPENDENCIES=""
@@ -96,28 +96,28 @@ matrix:
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
       addons:
-        mariadb: "10.2"
+        mariadb: "10.3"
     - php: 8.0
       dist: xenial
       sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
       addons:
-        mariadb: "10.2"
+        mariadb: "10.3"
     - php: 8.0
       dist: xenial
       sudo: true
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
         - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
       addons:
-        mariadb: "10.2"
+        mariadb: "10.3"
     - php: 8.0
       env:
         - DEPENDENCIES=""
@@ -186,28 +186,28 @@ matrix:
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
       addons:
-        mariadb: "10.2"
+        mariadb: "10.3"
     - php: 8.1
       dist: xenial
       sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
       addons:
-        mariadb: "10.2"
+        mariadb: "10.3"
     - php: 8.1
       dist: xenial
       sudo: true
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
         - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
       addons:
-        mariadb: "10.2"
+        mariadb: "10.3"
     - php: 8.1
       env:
         - DEPENDENCIES=""
