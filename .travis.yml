@@ -69,8 +69,8 @@ matrix:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
         - DB=postgres_10
-        - PGPORT=5433
-        - PGUSER=travis
+        - PGPORT=5432
+        - PGUSER=postgres
       addons:
         postgresql: "10"
         apt:
@@ -82,8 +82,8 @@ matrix:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
         - DB=postgres_10
-        - PGPORT=5433
-        - PGUSER=travis
+        - PGPORT=5432
+        - PGUSER=postgres
       addons:
         postgresql: "10"
         apt:
@@ -152,8 +152,8 @@ matrix:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
         - DB=postgres_10
-        - PGPORT=5433
-        - PGUSER=travis
+        - PGPORT=5432
+        - PGUSER=postgres
       addons:
         postgresql: "10"
         apt:
@@ -165,8 +165,8 @@ matrix:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
         - DB=postgres_10
-        - PGPORT=5433
-        - PGUSER=travis
+        - PGPORT=5432
+        - PGUSER=postgres
       addons:
         postgresql: "10"
         apt:
@@ -242,8 +242,8 @@ matrix:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
         - DB=postgres_10
-        - PGPORT=5433
-        - PGUSER=travis
+        - PGPORT=5432
+        - PGUSER=postgres
       addons:
         postgresql: "10"
         apt:
@@ -255,8 +255,8 @@ matrix:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
         - DB=postgres_10
-        - PGPORT=5433
-        - PGUSER=travis
+        - PGPORT=5432
+        - PGUSER=postgres
       addons:
         postgresql: "10"
         apt:
