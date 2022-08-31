@@ -1,5 +1,9 @@
 language: php
 
+services:
+  - mysql
+  - postgresql
+
 matrix:
   fast_finish: true
   include:
@@ -64,86 +68,28 @@ matrix:
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
-        - DB=postgres_9.3
+        - DB=postgres_10
+        - PGPORT=5433
+        - PGUSER=travis
       addons:
-        postgresql: "9.3"
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
     - php: 7.4
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
-        - DB=postgres_9.3
+        - DB=postgres_10
+        - PGPORT=5433
+        - PGUSER=travis
       addons:
-        postgresql: "9.3"
-    - php: 7.4
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.4
-      addons:
-        postgresql: "9.4"
-    - php: 7.4
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.4
-      addons:
-        postgresql: "9.4"
-    - php: 7.4
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=true
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-      addons:
-        postgresql: "9.5"
-    - php: 7.4
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=false
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-      addons:
-        postgresql: "9.5"
-    - php: 7.4
-      dist: xenial
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-      addons:
-        postgresql: "9.5"
-    - php: 7.4
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-      addons:
-        postgresql: "9.6"
-    - php: 7.4
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=false
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-      addons:
-        postgresql: "9.6"
-    - php: 7.4
-      dist: xenial
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-      addons:
-        postgresql: "9.6"
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
     - php: 8.0
       dist: xenial
       sudo: true
@@ -205,16 +151,28 @@ matrix:
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
-        - DB=postgres_9.3
+        - DB=postgres_10
+        - PGPORT=5433
+        - PGUSER=travis
       addons:
-        postgresql: "9.3"
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
     - php: 8.0
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
-        - DB=postgres_9.3
+        - DB=postgres_10
+        - PGPORT=5433
+        - PGUSER=travis
       addons:
-        postgresql: "9.3"
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
     - php: 8.0
       env:
         - DEPENDENCIES=""
@@ -222,69 +180,6 @@ matrix:
         - DB=postgres_9.4
       addons:
         postgresql: "9.4"
-    - php: 8.0
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.4
-      addons:
-        postgresql: "9.4"
-    - php: 8.0
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=true
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-      addons:
-        postgresql: "9.5"
-    - php: 8.0
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=false
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-      addons:
-        postgresql: "9.5"
-    - php: 8.0
-      dist: xenial
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-      addons:
-        postgresql: "9.5"
-    - php: 8.0
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-      addons:
-        postgresql: "9.6"
-    - php: 8.0
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=false
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-      addons:
-        postgresql: "9.6"
-    - php: 8.0
-      dist: xenial
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-      addons:
-        postgresql: "9.6"
     - php: 8.1
       dist: xenial
       sudo: true
@@ -346,86 +241,28 @@ matrix:
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
-        - DB=postgres_9.3
+        - DB=postgres_10
+        - PGPORT=5433
+        - PGUSER=travis
       addons:
-        postgresql: "9.3"
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
     - php: 8.1
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
-        - DB=postgres_9.3
+        - DB=postgres_10
+        - PGPORT=5433
+        - PGUSER=travis
       addons:
-        postgresql: "9.3"
-    - php: 8.1
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.4
-      addons:
-        postgresql: "9.4"
-    - php: 8.1
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.4
-      addons:
-        postgresql: "9.4"
-    - php: 8.1
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=true
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-      addons:
-        postgresql: "9.5"
-    - php: 8.1
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=false
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-      addons:
-        postgresql: "9.5"
-    - php: 8.1
-      dist: xenial
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-      addons:
-        postgresql: "9.5"
-    - php: 8.1
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-      addons:
-        postgresql: "9.6"
-    - php: 8.1
-      dist: xenial
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=false
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-      addons:
-        postgresql: "9.6"
-    - php: 8.1
-      dist: xenial
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-      addons:
-        postgresql: "9.6"
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
 
 cache:
   directories:
