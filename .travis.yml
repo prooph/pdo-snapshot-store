@@ -1,290 +1,268 @@
 language: php
 
+services:
+  - mysql
+  - postgresql
+
 matrix:
   fast_finish: true
   include:
-    - php: 7.1
-      dist: trusty
+    - php: 7.4
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
       addons:
-          mariadb: '10.2'
-    - php: 7.1
-      dist: trusty
+        mariadb: "10.3"
+    - php: 7.4
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
       addons:
-          mariadb: '10.2'
-    - php: 7.1
-      dist: trusty
+        mariadb: "10.3"
+    - php: 7.4
+      dist: xenial
       sudo: true
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
+        - DB=mariadb_10.3
         - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
       addons:
-          mariadb: '10.2'
-    - php: 7.1
+        mariadb: "10.3"
+    - php: 7.4
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mysql_5_6
-    - php: 7.1
+        - DB=mysql_5.7
+    - php: 7.4
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mysql_5_6
-    - php: 7.1
+        - DB=mysql_5.7
+    - php: 7.4
       sudo: true
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mysql_5.7
-    - php: 7.1
+        - DB=mysql_8.0
+    - php: 7.4
       sudo: true
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
-        - DB=mysql_5.7
+        - DB=mysql_8.0
         - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-    - php: 7.1
+    - php: 7.4
       sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
-        - DB=mysql_5.7
-    - php: 7.1
+        - DB=mysql_8.0
+    - php: 7.4
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
-        - DB=postgres_9.3
+        - DB=postgres_10
+        - PGPORT=5432
+        - PGUSER=postgres
       addons:
-        postgresql: '9.3'
-    - php: 7.1
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
+    - php: 7.4
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
-        - DB=postgres_9.3
+        - DB=postgres_10
+        - PGPORT=5432
+        - PGUSER=postgres
       addons:
-        postgresql: '9.3'
-    - php: 7.1
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
+    - php: 8.0
+      dist: xenial
+      sudo: true
+      env:
+        - DEPENDENCIES=""
+        - DRIVER="pdo_mysql"
+        - DB=mariadb_10.3
+      addons:
+        mariadb: "10.3"
+    - php: 8.0
+      dist: xenial
+      sudo: true
+      env:
+        - DEPENDENCIES="--prefer-lowest --prefer-stable"
+        - DRIVER="pdo_mysql"
+        - DB=mariadb_10.3
+      addons:
+        mariadb: "10.3"
+    - php: 8.0
+      dist: xenial
+      sudo: true
+      env:
+        - DEPENDENCIES=""
+        - DRIVER="pdo_mysql"
+        - DB=mariadb_10.3
+        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
+      addons:
+        mariadb: "10.3"
+    - php: 8.0
+      env:
+        - DEPENDENCIES=""
+        - DRIVER="pdo_mysql"
+        - DB=mysql_5.7
+    - php: 8.0
+      env:
+        - DEPENDENCIES="--prefer-lowest --prefer-stable"
+        - DRIVER="pdo_mysql"
+        - DB=mysql_5.7
+    - php: 8.0
+      sudo: true
+      env:
+        - DEPENDENCIES=""
+        - DRIVER="pdo_mysql"
+        - DB=mysql_8.0
+    - php: 8.0
+      sudo: true
+      env:
+        - DEPENDENCIES=""
+        - DRIVER="pdo_mysql"
+        - DB=mysql_8.0
+        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
+    - php: 8.0
+      sudo: true
+      env:
+        - DEPENDENCIES="--prefer-lowest --prefer-stable"
+        - DRIVER="pdo_mysql"
+        - DB=mysql_8.0
+    - php: 8.0
+      env:
+        - DEPENDENCIES=""
+        - DRIVER="pdo_pgsql"
+        - DB=postgres_10
+        - PGPORT=5432
+        - PGUSER=postgres
+      addons:
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
+    - php: 8.0
+      env:
+        - DEPENDENCIES="--prefer-lowest --prefer-stable"
+        - DRIVER="pdo_pgsql"
+        - DB=postgres_10
+        - PGPORT=5432
+        - PGUSER=postgres
+      addons:
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
+    - php: 8.0
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
         - DB=postgres_9.4
       addons:
-        postgresql: '9.4'
-    - php: 7.1
+        postgresql: "9.4"
+    - php: 8.1
+      dist: xenial
+      sudo: true
+      env:
+        - DEPENDENCIES=""
+        - DRIVER="pdo_mysql"
+        - DB=mariadb_10.3
+      addons:
+        mariadb: "10.3"
+    - php: 8.1
+      dist: xenial
+      sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.4
+        - DRIVER="pdo_mysql"
+        - DB=mariadb_10.3
       addons:
-        postgresql: '9.4'
-    - php: 7.1
-      dist: trusty
+        mariadb: "10.3"
+    - php: 8.1
+      dist: xenial
+      sudo: true
       env:
         - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=true
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-      addons:
-        postgresql: '9.5'
-    - php: 7.1
-      dist: trusty
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=false
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
+        - DRIVER="pdo_mysql"
+        - DB=mariadb_10.3
         - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
       addons:
-        postgresql: '9.5'
-    - php: 7.1
-      dist: trusty
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-      addons:
-        postgresql: '9.5'
-    - php: 7.1
-      dist: trusty
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-      addons:
-        postgresql: '9.6'
-    - php: 7.1
-      dist: trusty
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=false
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-      addons:
-        postgresql: '9.6'
-    - php: 7.1
-      dist: trusty
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-      addons:
-        postgresql: '9.6'
-    - php: 7.2
-      dist: trusty
-      sudo: true
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
-      addons:
-          mariadb: '10.2'
-    - php: 7.2
-      dist: trusty
-      sudo: true
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
-      addons:
-          mariadb: '10.2'
-    - php: 7.2
-      dist: trusty
-      sudo: true
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_mysql"
-        - DB=mariadb_10.2
-        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-      addons:
-          mariadb: '10.2'
-    - php: 7.2
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_mysql"
-        - DB=mysql_5_6
-    - php: 7.2
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_mysql"
-        - DB=mysql_5_6
-    - php: 7.2
-      sudo: true
+        mariadb: "10.3"
+    - php: 8.1
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_mysql"
         - DB=mysql_5.7
-    - php: 7.2
-      sudo: true
-      env:
-        - DEPENDENCIES=""
-        - DRIVER="pdo_mysql"
-        - DB=mysql_5.7
-        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-    - php: 7.2
-      sudo: true
+    - php: 8.1
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_mysql"
         - DB=mysql_5.7
-    - php: 7.2
+    - php: 8.1
+      sudo: true
       env:
         - DEPENDENCIES=""
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.3
-      addons:
-        postgresql: '9.3'
-    - php: 7.2
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.3
-      addons:
-        postgresql: '9.3'
-    - php: 7.2
+        - DRIVER="pdo_mysql"
+        - DB=mysql_8.0
+    - php: 8.1
+      sudo: true
       env:
         - DEPENDENCIES=""
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.4
-      addons:
-        postgresql: '9.4'
-    - php: 7.2
-      env:
-        - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.4
-      addons:
-        postgresql: '9.4'
-    - php: 7.2
-      dist: trusty
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=true
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-      addons:
-        postgresql: '9.5'
-    - php: 7.2
-      dist: trusty
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=false
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
+        - DRIVER="pdo_mysql"
+        - DB=mysql_8.0
         - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-      addons:
-        postgresql: '9.5'
-    - php: 7.2
-      dist: trusty
+    - php: 8.1
+      sudo: true
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.5
-      addons:
-        postgresql: '9.5'
-    - php: 7.2
-      dist: trusty
+        - DRIVER="pdo_mysql"
+        - DB=mysql_8.0
+    - php: 8.1
       env:
         - DEPENDENCIES=""
         - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
+        - DB=postgres_10
+        - PGPORT=5432
+        - PGUSER=postgres
       addons:
-        postgresql: '9.6'
-    - php: 7.2
-      dist: trusty
-      env:
-        - DEPENDENCIES=""
-        - EXECUTE_CS_CHECK=false
-        - TEST_COVERAGE=true
-        - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
-        - DB_ATTR_ERRMODE=2 # \PDO::ERRMODE_EXCEPTION
-      addons:
-        postgresql: '9.6'
-    - php: 7.2
-      dist: trusty
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
+    - php: 8.1
       env:
         - DEPENDENCIES="--prefer-lowest --prefer-stable"
         - DRIVER="pdo_pgsql"
-        - DB=postgres_9.6
+        - DB=postgres_10
+        - PGPORT=5432
+        - PGUSER=postgres
       addons:
-        postgresql: '9.6'
+        postgresql: "10"
+        apt:
+          packages:
+            - postgresql-10
+            - postgresql-client-10
 
 cache:
   directories:
@@ -296,7 +274,7 @@ before_script:
   - mkdir -p "$HOME/.php-cs-fixer"
   - phpenv config-rm xdebug.ini
   - VENDOR=$(echo $DB | cut -d'_' -f 1)
-  - if [[ $DB == 'mysql_5.7' ]]; then bash .travis.install-mysql-5.7.sh; fi
+  - if [[ $DB == 'mysql_8.0' ]]; then bash .travis.install-mysql-8.0.sh; fi
   - if [[ $DRIVER == 'pdo_mysql' ]]; then mysql -e 'create database snapshot_tests;'; fi
   - if [[ $DRIVER == 'pdo_pgsql' ]]; then psql -c 'create database snapshot_tests;' -U postgres; fi
   - composer self-update
@@ -314,6 +292,6 @@ notifications:
   webhooks:
     urls:
       - https://webhooks.gitter.im/e/61c75218816eebde4486
-    on_success: change  # options: [always|never|change] default: always
-    on_failure: always  # options: [always|never|change] default: always
-    on_start: never     # options: [always|never|change] default: always
+    on_success: change # options: [always|never|change] default: always
+    on_failure: always # options: [always|never|change] default: always
+    on_start: never # options: [always|never|change] default: always

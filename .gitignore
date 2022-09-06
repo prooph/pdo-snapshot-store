@@ -9,3 +9,5 @@ phpunit.xml
 nbproject
 composer.lock
 docs/html
+.phpunit.result.cache
+
