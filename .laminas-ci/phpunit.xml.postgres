@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd" backupGlobals="false" backupStaticAttributes="false" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" stopOnFailure="false" bootstrap="vendor/autoload.php">
+  <coverage>
+    <include>
+      <directory>./src/</directory>
+    </include>
+  </coverage>
+  <testsuite name="Prooph PDO Snapshot Store Test Suite">
+    <directory>./tests</directory>
+  </testsuite>
+  <php>
+    <env name="db_type" value="pdo_pgsql"/>
+    <env name="db_host" value="database"/>
+    <env name="db_username" value="gha"/>
+    <env name="db_password" value="password"/>
+    <env name="db_name" value="snapshot_tests"/>
+    <env name="db_port" value="5432"/>
+    <!-- \PDO::ERRMODE_SILENT -->
+    <env name="DB_ATTR_ERRMODE" value="0"/>
+  </php>
+</phpunit>

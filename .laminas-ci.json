@@ -1,0 +1,6 @@
+{
+    "extensions": [
+        "pdo-mysql",
+        "pdo-pgsql"
+    ]
+}

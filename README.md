@@ -1,6 +1,6 @@
 # Prooph PDO Snapshot Store
 
-[![Build Status](https://travis-ci.org/prooph/pdo-snapshot-store.svg?branch=master)](https://travis-ci.org/prooph/pdo-snapshot-store)
+[![Continuous Integration](https://github.com/prooph/pdo-snapshot-store/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/prooph/pdo-snapshot-store/actions/workflows/continuous-integration.yml)
 [![Coverage Status](https://coveralls.io/repos/prooph/pdo-snapshot-store/badge.svg?branch=master&service=github)](https://coveralls.io/github/prooph/pdo-snapshot-store?branch=master)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/prooph/improoph)
 
