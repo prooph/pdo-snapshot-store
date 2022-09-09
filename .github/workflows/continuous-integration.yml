@@ -1,0 +1,110 @@
+name: "Continuous Integration"
+
+on:
+  pull_request:
+  push:
+    branches:
+    tags:
+
+jobs:
+  matrix:
+    name: Generate job matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Gather CI configuration
+        id: matrix
+        uses: laminas/laminas-ci-matrix-action@v1
+
+  qa-mysql:
+    name: QA Checks [MySQL]
+    needs: [matrix]
+    runs-on: ${{ matrix.operatingSystem }}
+    strategy:
+      fail-fast: true
+      matrix: ${{ fromJSON(needs.matrix.outputs.matrix) }}
+    steps:
+      - name: ${{ matrix.name }}
+        uses: laminas/laminas-continuous-integration-action@v1
+        with:
+          job: ${{ matrix.job }}
+        env:
+          DB_VENDOR: "mysql"
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: "root"
+          MYSQL_USER: "gha"
+          MYSQL_PASSWORD: "password"
+          MYSQL_DATABASE: "snapshot_tests"
+        options: >-
+          --network-alias database
+          --health-cmd="mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+        ports:
+          - 3306:3306
+
+  qa-postgres:
+    name: QA Checks [Postgres]
+    needs: [matrix]
+    runs-on: ${{ matrix.operatingSystem }}
+    strategy:
+      fail-fast: true
+      matrix: ${{ fromJSON(needs.matrix.outputs.matrix) }}
+    steps:
+      - name: ${{ matrix.name }}
+        uses: laminas/laminas-continuous-integration-action@v1
+        with:
+          job: ${{ matrix.job }}
+        env:
+          DB_VENDOR: "postgres"
+    services:
+      postgres:
+        image: postgres:10
+        env:
+          POSTGRES_USER: "gha"
+          POSTGRES_PASSWORD: "password"
+          POSTGRES_DB: "snapshot_tests"
+        options: >-
+          --network-alias database
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+        ports:
+          - 5432:5432
+
+  qa-mariadb:
+    name: QA Checks [MariaDB]
+    needs: [matrix]
+    runs-on: ${{ matrix.operatingSystem }}
+    strategy:
+      fail-fast: true
+      matrix: ${{ fromJSON(needs.matrix.outputs.matrix) }}
+    steps:
+      - name: ${{ matrix.name }}
+        uses: laminas/laminas-continuous-integration-action@v1
+        with:
+          job: ${{ matrix.job }}
+        env:
+          DB_VENDOR: "mariadb"
+    services:
+      postgres:
+        image: mariadb:10.3
+        env:
+          MYSQL_ROOT_PASSWORD: "root"
+          MYSQL_USER: "gha"
+          MYSQL_PASSWORD: "password"
+          MYSQL_DATABASE: "snapshot_tests"
+        options: >-
+          --network-alias database
+          --health-cmd="mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 3
+        ports:
+          - 3306:3306
